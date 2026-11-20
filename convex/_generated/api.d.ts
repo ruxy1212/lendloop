@@ -10,6 +10,7 @@
 
 import type * as constants from "../constants.js";
 import type * as lib_auth from "../lib/auth.js";
+import type * as lib_loans from "../lib/loans.js";
 import type * as users from "../users.js";
 
 import type {
@@ -21,6 +22,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   constants: typeof constants;
   "lib/auth": typeof lib_auth;
+  "lib/loans": typeof lib_loans;
   users: typeof users;
 }>;
 
