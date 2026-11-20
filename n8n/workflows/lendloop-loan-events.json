@@ -73,7 +73,8 @@
         "toEmail": "={{ $json.to }}",
         "subject": "={{ $json.subject }}",
         "emailFormat": "text",
-        "text": "={{ $json.text }}"
+        "text": "={{ $json.text }}",
+        "message": "={{ $json.text }}"
       },
       "name": "Send Email",
       "type": "n8n-nodes-base.emailSend",
