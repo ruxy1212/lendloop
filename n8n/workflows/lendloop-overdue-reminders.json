@@ -65,6 +65,7 @@
         "fromEmail": "LendLoop <noreply@lendloop.local>",
         "toEmail": "={{ $json.borrowerEmail }}",
         "subject": "=Due back: {{ $json.toolName }}",
+        "emailFormat": "text",
         "text": "=Hi {{ $json.borrowerName }},\n\n\"{{ $json.toolName }}\" was due {{ $json.endDate }} ({{ $json.daysOverdue }}d ago). Please return it when you can.\n\n- LendLoop"
       },
       "name": "Send Email",
