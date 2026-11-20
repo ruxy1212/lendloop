@@ -20,7 +20,7 @@
     },
     {
       "parameters": {
-        "url": "={{ ($env.CONVEX_SITE_URL || $vars.CONVEX_SITE_URL) + '/automation/overdue' }}",
+        "url": "={{ ($vars.CONVEX_SITE_URL || '') + '/automation/overdue' }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendQuery": true,
@@ -83,7 +83,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ ($env.CONVEX_SITE_URL || $vars.CONVEX_SITE_URL) + '/automation/reminder-result' }}",
+        "url": "={{ ($vars.CONVEX_SITE_URL || '') + '/automation/reminder-result' }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
@@ -110,7 +110,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ ($env.CONVEX_SITE_URL || $vars.CONVEX_SITE_URL) + '/automation/reminder-result' }}",
+        "url": "={{ ($vars.CONVEX_SITE_URL || '') + '/automation/reminder-result' }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
