@@ -14,7 +14,9 @@
         "fromEmail": "LendLoop <noreply@lendloop.local>",
         "toEmail": "ops@lendloop.local",
         "subject": "=[LendLoop] {{ $json.workflow.name }} failed",
-        "text": "={{ $json.execution.error.message }}\n\nLast node: {{ $json.execution.lastNodeExecuted }}\nExecution URL: {{ $json.execution.url }}"
+        "emailFormat": "text",
+        "text": "={{ $json.execution.error.message }}\n\nLast node: {{ $json.execution.lastNodeExecuted }}\nExecution URL: {{ $json.execution.url }}",
+        "message": "={{ $json.execution.error.message }}\n\nLast node: {{ $json.execution.lastNodeExecuted }}\nExecution URL: {{ $json.execution.url }}"
       },
       "name": "Send Alert Email",
       "type": "n8n-nodes-base.emailSend",
