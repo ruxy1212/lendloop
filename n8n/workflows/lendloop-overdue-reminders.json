@@ -1,0 +1,210 @@
+{
+  "name": "LendLoop · Overdue reminders",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300],
+      "id": "22222222-0000-0000-0000-000000000001"
+    },
+    {
+      "parameters": {
+        "url": "={{ ($env.CONVEX_SITE_URL || $vars.CONVEX_SITE_URL) + '/automation/overdue' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "today",
+              "value": "={{ $now.toFormat('yyyy-MM-dd') }}"
+            }
+          ]
+        },
+        "options": {
+          "retryOnFail": true,
+          "maxTries": 3,
+          "waitBetweenTries": 5000
+        }
+      },
+      "name": "Fetch overdue",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 300],
+      "id": "22222222-0000-0000-0000-000000000002",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2",
+          "name": "Convex Automation Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "loans"
+      },
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [680, 300],
+      "id": "22222222-0000-0000-0000-000000000003"
+    },
+    {
+      "parameters": {
+        "fromEmail": "LendLoop <noreply@lendloop.local>",
+        "toEmail": "={{ $json.borrowerEmail }}",
+        "subject": "=Due back: {{ $json.toolName }}",
+        "text": "=Hi {{ $json.borrowerName }},\n\n\"{{ $json.toolName }}\" was due {{ $json.endDate }} ({{ $json.daysOverdue }}d ago). Please return it when you can.\n\n- LendLoop"
+      },
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [900, 300],
+      "id": "22222222-0000-0000-0000-000000000004",
+      "onError": "continueErrorOutput",
+      "credentials": {
+        "smtp": {
+          "id": "1",
+          "name": "Mailpit SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ ($env.CONVEX_SITE_URL || $vars.CONVEX_SITE_URL) + '/automation/reminder-result' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"loanId\": \"{{ $('Split Out').item.json.loanId }}\",\n  \"idempotencyKey\": \"{{ $('Split Out').item.json.reminderKey }}\",\n  \"status\": \"sent\"\n}",
+        "options": {
+          "retryOnFail": true,
+          "maxTries": 3,
+          "waitBetweenTries": 5000
+        }
+      },
+      "name": "Write back: sent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1140, 200],
+      "id": "22222222-0000-0000-0000-000000000005",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2",
+          "name": "Convex Automation Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ ($env.CONVEX_SITE_URL || $vars.CONVEX_SITE_URL) + '/automation/reminder-result' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"loanId\": \"{{ $('Split Out').item.json.loanId }}\",\n  \"idempotencyKey\": \"{{ $('Split Out').item.json.reminderKey }}\",\n  \"status\": \"failed\",\n  \"detail\": \"{{ String($json.error ?? 'send failed').slice(0, 150) }}\"\n}"
+      },
+      "name": "Write back: failed",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1140, 420],
+      "id": "22222222-0000-0000-0000-000000000006",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2",
+          "name": "Convex Automation Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "errorMessage": "Reminder email failed"
+      },
+      "name": "Stop and Error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [1360, 420],
+      "id": "22222222-0000-0000-0000-000000000007"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch overdue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch overdue": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "main": [
+        [
+          {
+            "node": "Write back: sent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Write back: failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write back: failed": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

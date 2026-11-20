@@ -1,0 +1,48 @@
+{
+  "name": "LendLoop · Error handler",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "id": "33333333-0000-0000-0000-000000000001"
+    },
+    {
+      "parameters": {
+        "fromEmail": "LendLoop <noreply@lendloop.local>",
+        "toEmail": "ops@lendloop.local",
+        "subject": "=[LendLoop] {{ $json.workflow.name }} failed",
+        "text": "={{ $json.execution.error.message }}\n\nLast node: {{ $json.execution.lastNodeExecuted }}\nExecution URL: {{ $json.execution.url }}"
+      },
+      "name": "Send Alert Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [460, 300],
+      "id": "33333333-0000-0000-0000-000000000002",
+      "credentials": {
+        "smtp": {
+          "id": "1",
+          "name": "Mailpit SMTP"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send Alert Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
