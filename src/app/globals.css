@@ -1,26 +1,70 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "react-day-picker/style.css";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist);
+  --font-display: var(--font-instrument);
+  --color-paper: var(--paper);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-moss: var(--moss);
+  --color-ember: var(--ember);
+  --color-danger: var(--danger);
+}
+
+:root {
+  --paper: #f6f3ec;
+  --card: #ffffff;
+  --ink: #16150f;
+  --mute: #6b6a60;
+  --line: #e3dfd3;
+  --moss: #2e4a3b;
+  --ember: #e4572e;
+  --danger: #b3261e;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --paper: #12130f;
+    --card: #1b1c17;
+    --ink: #f2efe6;
+    --mute: #9a9889;
+    --line: #2b2c25;
+    --moss: #8fbf9f;
+    --ember: #ff7a4d;
+    --danger: #ff8a80;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+::selection {
+  background: var(--ember);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+.rdp-root {
+  --rdp-accent-color: var(--moss);
+  --rdp-accent-background-color: color-mix(in oklab, var(--moss) 16%, transparent);
+  --rdp-day_button-border-radius: 12px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
