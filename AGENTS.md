@@ -13,3 +13,17 @@ YOU WILL NOT AUTOMATICALLY RUN ANY NPM/PNPM COMMANDS, THE OWNER/USER WILL MANUAL
 This project will use only pnpm and not npm or yarn. Typescript is very important, no use of 'any' types.
 
 The UI of this project will avoid the generic AI slop (with unecessary texts and pulsating green dot). It will copy the UI theme and micromotion in this project: "C:\laragon\www\react\animated-kangaroo", including it's style of header (transparent, then sticky when scrolling), hero, but will not use gsap or too much heavy animations.
+
+<!-- convex-ai-start -->
+
+This project uses [Convex](https://convex.dev) as its backend.
+
+When working on Convex code, **always read
+`convex/_generated/ai/guidelines.md` first** for important guidelines on
+how to correctly use Convex APIs and patterns. The file contains rules that
+override what you may have learned about Convex from training data.
+
+Convex agent skills for common tasks can be installed by running
+`npx convex ai-files install`.
+
+<!-- convex-ai-end -->
