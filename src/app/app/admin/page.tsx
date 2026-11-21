@@ -20,10 +20,24 @@ export default function AdminPage() {
 
   const [activeTab, setActiveTab] = useState<AdminTab>("loans");
   const [togglingId, setTogglingId] = useState<Id<"users"> | null>(null);
+  const [returningId, setReturningId] = useState<Id<"loans"> | null>(null);
 
   const allLoans = useQuery(api.admin.allLoans, isAdmin ? {} : "skip");
   const lenders = useQuery(api.admin.lenders, isAdmin ? {} : "skip");
   const setTrusted = useMutation(api.admin.setTrusted);
+  const markReturned = useMutation(api.loans.markReturned);
+
+  const handleMarkReturned = async (loanId: Id<"loans">) => {
+    setReturningId(loanId);
+    try {
+      await markReturned({ loanId });
+      toast.success("Loan marked as returned.");
+    } catch (e) {
+      toastError(e);
+    } finally {
+      setReturningId(null);
+    }
+  };
 
   const handleToggleTrusted = async (userId: Id<"users">, nextState: boolean) => {
     setTogglingId(userId);
@@ -129,7 +143,19 @@ export default function AdminPage() {
                       </p>
                     </div>
 
-                    <StatusBadge status={l.status as LoanStatus} />
+                    <div className="flex items-center gap-3">
+                      <StatusBadge status={l.status as LoanStatus} />
+                      {l.status === "approved" && (
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          disabled={returningId === l._id}
+                          onClick={() => handleMarkReturned(l._id)}
+                        >
+                          {returningId === l._id ? "Updating…" : "Mark returned"}
+                        </Button>
+                      )}
+                    </div>
                   </motion.li>
                 ))}
               </AnimatePresence>
