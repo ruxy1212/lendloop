@@ -11,6 +11,7 @@
   --color-line: var(--line);
   --color-moss: var(--moss);
   --color-ember: var(--ember);
+  --color-amber: var(--amber);
   --color-danger: var(--danger);
 }
 
@@ -22,6 +23,7 @@
   --line: rgba(255, 255, 255, 0.12);
   --moss: #05c2ff;
   --ember: #635bff;
+  --amber: #975bff;
   --danger: #ff8a80;
   --primary: #05c2ff;
   --primary-dark: #131bff;
@@ -70,6 +72,25 @@ button[aria-busy="true"] {
   --rdp-accent-color: var(--moss);
   --rdp-accent-background-color: color-mix(in oklab, var(--moss) 16%, transparent);
   --rdp-day_button-border-radius: 12px;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-amber);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--paper);
+  border: 2px solid var(--color-amber);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-card);
 }
 
 .no-scrollbar::-webkit-scrollbar {
