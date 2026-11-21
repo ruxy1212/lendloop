@@ -26,7 +26,60 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        variables: {
+          colorPrimary: "#131bff",
+          colorBackground: "#111127",
+          colorForeground: "#f5f5ff",
+          borderRadius: "0.75rem",
+        },
+        elements: {
+          formFieldInput: {
+            backgroundColor: "#17182f",
+            color: "#f5f5ff",
+          },
+          footerActionLink: {
+            color: "#05c2ff",
+          },
+          footerActionText: {
+            color: "#a8a8c7",
+          },
+          formFieldAction: {
+            color: "#05c2ff",
+          },
+          socialButtonsBlockButton: {
+            backgroundColor: "#17182f",
+            borderColor: "#2d3058",
+          },
+          socialButtonsBlockButtonText: {
+            color: "#f5f5ff",
+          },
+          userButtonPopoverCard: {
+            backgroundColor: "#111127",
+          },
+          userButtonPopoverActionButton: {
+            color: "#f5f5ff",
+            "&:hover": {
+              color: "#05c2ff",
+              backgroundColor: "rgba(5, 194, 255, 0.10)",
+            },
+          },
+          userButtonPopoverActionButtonText: {
+            color: "#f5f5ff",
+            "&:hover": {
+              color: "#05c2ff",
+            },
+          },
+          userButtonPopoverActionButtonIcon: {
+            color: "#a8a8c7",
+            "&:hover": {
+              color: "#05c2ff",
+            },
+          },
+        },
+      }}
+    >
       <html lang="en" className={`${sans.variable} ${display.variable}`}>
         <body className="font-sans antialiased min-h-screen">
           <Providers>{children}</Providers>

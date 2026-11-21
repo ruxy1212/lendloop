@@ -48,7 +48,7 @@ export function Header() {
         <div className="flex items-center gap-3">
           <Unauthenticated>
             <SignInButton mode="modal">
-              <Button size="sm" className="border border-white/10">
+              <Button variant="ink" size="sm" className="border border-white/10">
                 Sign in
               </Button>
             </SignInButton>
