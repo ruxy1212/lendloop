@@ -2,8 +2,11 @@ import { ConvexError, v } from "convex/values";
 import { mutation, query, internalMutation } from "./_generated/server";
 
 export const store = mutation({
-  args: {},
-  handler: async (ctx) => {
+  args: {
+    name: v.optional(v.string()),
+    email: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new ConvexError({ code: "UNAUTHENTICATED" });
 
@@ -12,12 +15,26 @@ export const store = mutation({
       .withIndex("by_token", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
       .unique();
 
-    const name = (identity.name ?? identity.givenName ?? "Neighbor").slice(0, 80);
-    const email = identity.email ?? "";
+    const email = (args.email ?? identity.email ?? "").trim();
+    const emailHandle = email.includes("@") ? email.split("@")[0] : "";
+    const name = (
+      args.name?.trim() ||
+      identity.name?.trim() ||
+      identity.givenName?.trim() ||
+      emailHandle ||
+      "Neighbor"
+    ).slice(0, 80);
 
     if (existing) {
-      if (existing.name !== name || existing.email !== email) {
-        await ctx.db.patch(existing._id, { name, email });
+      const updates: { name?: string; email?: string } = {};
+      if (existing.name !== name && name !== "Neighbor") {
+        updates.name = name;
+      }
+      if (existing.email !== email && email !== "") {
+        updates.email = email;
+      }
+      if (Object.keys(updates).length > 0) {
+        await ctx.db.patch(existing._id, updates);
       }
       return existing._id;
     }

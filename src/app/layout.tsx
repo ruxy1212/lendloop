@@ -40,6 +40,15 @@ export default function RootLayout({
             backgroundColor: "#17182f",
             color: "#f5f5ff",
           },
+          otpCodeFieldInput: {
+            backgroundColor: "#17182f",
+            borderColor: "#2d3058",
+            color: "#f5f5ff",
+            "&:focus": {
+              borderColor: "#05c2ff",
+              boxShadow: "0 0 0 1px #05c2ff",
+            },
+          },
           footerActionLink: {
             color: "#05c2ff",
           },
