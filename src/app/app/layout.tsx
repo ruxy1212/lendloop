@@ -35,7 +35,7 @@ export default function AppLayout({
 
   return (
     <div className="min-h-screen bg-paper flex flex-col">
-      <div className="mx-auto w-full max-w-5xl flex-1 px-4 sm:px-6 pb-24">
+      <div className="mx-auto w-full max-w-7xl flex-1 px-4 sm:px-6 pb-24">
         {/* Sticky App Header */}
         <header className="sticky top-0 z-30 -mx-4 sm:-mx-6 bg-paper/85 px-4 sm:px-6 backdrop-blur-md border-b border-line/60">
           <div className="flex h-16 items-center justify-between">

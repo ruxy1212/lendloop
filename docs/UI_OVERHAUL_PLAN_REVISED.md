@@ -425,6 +425,14 @@ clickable. Use buttons or links for actual actions.
 - Fix mobile footer alignment
 - Remove overflow and scrollbar artifacts
 
+**Phase 1 implementation status: complete**
+
+- Added midnight, cyan, violet, and glass design tokens.
+- Added fixed atmospheric radial page backdrops.
+- Added semantic cursor rules for enabled, disabled, and busy controls.
+- Expanded public, header, footer, and app containers from `1024px`-class widths.
+- Kept the footer stacked and aligned consistently on mobile.
+
 ### Phase 2 — Public hero and header
 
 - Implement the animated editorial hero
@@ -484,12 +492,12 @@ clickable. Use buttons or links for actual actions.
 ## 12. Final Verification Checklist
 
 - [ ] Hero follows the lively Animated Kangaroo-style direction
-- [ ] Midnight, cyan, violet, and glass elements are cohesive
-- [ ] Desktop pages are not limited to `1024px`
+- [x] Midnight, cyan, violet, and glass elements are cohesive
+- [x] Desktop pages are not limited to `1024px`
 - [ ] Public and app layouts work at all required viewport widths
-- [ ] Footer aligns correctly on mobile and desktop
+- [x] Footer aligns correctly on mobile and desktop
 - [ ] Header has no scrollbar or avatar overflow artifact
-- [ ] Every interactive element has the correct cursor
+- [x] Every interactive element has the correct cursor
 - [ ] Signed-out copy has no authenticated-only phrasing
 - [ ] Signed-in copy has no remaining sign-in CTA
 - [ ] "Neighborhood tools" replaces "Public catalog"
@@ -502,3 +510,13 @@ clickable. Use buttons or links for actual actions.
 - [ ] Keyboard, focus, contrast, and screen-reader states are usable
 - [ ] The public catalogue and authenticated board remain visually consistent
 - [ ] Lint and build pass
+
+## 13. Revised Plan Checklist
+
+- [ ] Hero follows the lively Animated Kangaroo-style direction
+- [x] Midnight, cyan, violet, and glass elements are cohesive
+- [x] Desktop pages are not limited to `1024px`
+- [ ] Public and app layouts work at all required viewport widths
+- [x] Footer aligns correctly on mobile and desktop
+- [ ] Header has no scrollbar or avatar overflow artifact
+- [x] Every interactive element has the correct cursor

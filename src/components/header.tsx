@@ -30,7 +30,7 @@ export function Header() {
           : "bg-transparent py-5"
       )}
     >
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 sm:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="group flex items-center gap-2.5 outline-none">
           <div className="relative size-8 overflow-hidden rounded-xl border border-line/80 bg-card p-1 shadow-xs transition group-hover:scale-105">
             <Image

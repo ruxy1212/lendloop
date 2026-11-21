@@ -75,7 +75,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-paper flex flex-col">
       <Header />
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 sm:px-6 pb-24">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 sm:px-6 pb-24">
         {/* Hero Section */}
         <Hero />
 
@@ -158,7 +158,7 @@ export default function HomePage() {
 
       {/* Editorial Footer */}
       <footer className="border-t border-line/60 py-8 bg-paper">
-        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-center sm:flex-row sm:text-left sm:px-6">
           <p className="text-xs text-mute">
             © {new Date().getFullYear()} LendLoop · Borrow what you need. Lend what you don’t.
           </p>
