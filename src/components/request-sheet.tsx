@@ -9,6 +9,7 @@ import { api } from "@/convex/_generated/api";
 import type { FunctionReturnType } from "convex/server";
 import { Sheet } from "./sheet";
 import { toastError } from "@/lib/utils";
+import { Button } from "./button";
 
 export type ExploreTool = FunctionReturnType<typeof api.tools.board>[number];
 
@@ -72,18 +73,19 @@ export function RequestSheet({ tool, open, onOpenChange }: RequestSheetProps) {
           max={30}
         />
       </div>
-      <button
+      <Button
         type="button"
+        size="lg"
         onClick={submit}
         disabled={!days || busy}
-        className="mt-4 h-12 w-full rounded-2xl bg-primary-dark font-medium text-white shadow-[0_12px_35px_rgba(19,27,255,0.22)] transition hover:bg-primary-dark/85 active:scale-[0.98] disabled:opacity-40"
+        className="mt-4 w-full"
       >
         {busy
           ? "Sending…"
           : days
           ? `Request · ${days} day${days > 1 ? "s" : ""}`
           : "Pick dates"}
-      </button>
+      </Button>
     </Sheet>
   );
 }

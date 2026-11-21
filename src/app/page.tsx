@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 import { SignInButton } from "@clerk/nextjs";
 import { Authenticated, Unauthenticated, useQuery } from "convex/react";
 import { motion } from "motion/react";
@@ -11,6 +10,7 @@ import { Hero } from "@/components/hero";
 import { CategoryFilter } from "@/components/category-filter";
 import { ToolGrid } from "@/components/tool-grid";
 import { CardSkeleton } from "@/components/card-skeleton";
+import { Button } from "@/components/button";
 
 function EmptyState() {
   return (
@@ -22,21 +22,13 @@ function EmptyState() {
       <div className="mt-5">
         <Unauthenticated>
           <SignInButton mode="modal">
-            <button
-              type="button"
-              className="h-10 rounded-full bg-ink px-5 text-sm font-medium text-paper transition hover:bg-ink/90 active:scale-95"
-            >
-              Sign in to list a tool
-            </button>
+            <Button variant="ink">Sign in to list a tool</Button>
           </SignInButton>
         </Unauthenticated>
         <Authenticated>
-          <Link
-            href="/app/listings"
-            className="inline-flex h-10 items-center justify-center rounded-full bg-ink px-5 text-sm font-medium text-paper transition hover:bg-ink/90 active:scale-95"
-          >
+          <Button href="/app/listings" variant="ink">
             List a tool →
-          </Link>
+          </Button>
         </Authenticated>
       </div>
     </div>
@@ -61,44 +53,10 @@ export default function HomePage() {
         {/* Hero Section */}
         <Hero />
 
-        {/* Action Callout */}
-        <div className="mt-5 mb-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-          <div className="rounded-2xl border border-white/10 bg-card/55 p-2 backdrop-blur-md">
-            <Unauthenticated>
-              <SignInButton mode="modal">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="h-11 rounded-xl bg-primary-dark px-5 text-sm font-medium text-white shadow-[0_12px_35px_rgba(19,27,255,0.22)] transition hover:bg-primary-dark/85"
-                >
-                  Sign in to explore
-                </motion.button>
-              </SignInButton>
-            </Unauthenticated>
-
-            <Authenticated>
-              <Link
-                href="/app"
-                className="inline-flex h-11 items-center gap-2 rounded-xl bg-primary-dark px-5 text-sm font-medium text-white shadow-[0_12px_35px_rgba(19,27,255,0.22)] transition hover:bg-primary-dark/85 active:scale-95"
-              >
-                Explore tools →
-              </Link>
-            </Authenticated>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-mute sm:text-sm">
-            <span>Free neighborhood sharing</span>
-            <span className="size-1 rounded-full bg-primary" />
-            <span>Verified members</span>
-            <span className="size-1 rounded-full bg-primary" />
-            <span>Zero platform fees</span>
-          </div>
-        </div>
-
         {/* Neighborhood Tools Header */}
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-line/60 pt-8">
           <div>
-            <h2 className="font-display text-2xl text-ink">Neighborhood tools</h2>
+            <h2 className="font-display text-2xl text-ink">Tools to Borrow</h2>
             <p className="text-xs text-mute sm:text-sm">
               Tools currently available in your neighborhood
             </p>
@@ -147,18 +105,74 @@ export default function HomePage() {
                     </p>
                   </Unauthenticated>
                   <Authenticated>
-                    <Link
-                      href="/app"
-                      className="mt-1 inline-flex text-xs font-medium text-primary transition hover:text-primary/80"
-                    >
+                    <Button href="/app" variant="ghost" size="sm" className="mt-1 h-auto px-0 text-xs text-primary hover:bg-transparent hover:text-primary/80">
                       Explore or request →
-                    </Link>
+                    </Button>
                   </Authenticated>
                 </div>
               </div>
             )}
           />
         )}
+
+        {/* Community CTA */}
+        <section className="relative isolate mt-16 border-t border-line/60 pt-8">
+          <div className="relative isolate overflow-hidden rounded-[28px] border border-primary/20 bg-[linear-gradient(135deg,#11165a_0%,#131bff_54%,#1a2a78_100%)] px-4 py-10 text-center shadow-[0_24px_70px_rgba(19,27,255,0.16)] sm:px-8 sm:py-12">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_15%,rgba(5,194,255,0.16),transparent_42%),radial-gradient(circle_at_82%_85%,rgba(99,91,255,0.24),transparent_38%)]"
+            />
+
+            <div className="flex justify-center">
+              <Unauthenticated>
+                <SignInButton mode="modal">
+                  <motion.div
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    <Button
+                      variant="ink"
+                      size="lg"
+                      className="h-14 min-w-52 rounded-full px-7 text-[15px]"
+                    >
+                      Sign in to explore
+                    </Button>
+                  </motion.div>
+                </SignInButton>
+              </Unauthenticated>
+
+              <Authenticated>
+                <motion.div
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.18 }}
+                >
+                  <Button
+                    href="/app"
+                    variant="ink"
+                    size="lg"
+                    className="h-14 min-w-52 rounded-full px-7 text-[15px]"
+                  >
+                    Explore tools →
+                  </Button>
+                </motion.div>
+              </Authenticated>
+            </div>
+
+            <div className="mx-auto mt-8 grid max-w-2xl grid-cols-1 divide-y divide-white/15 text-xs sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:text-sm">
+              <div className="px-5 py-3 text-white/70 sm:py-0">
+                Free neighborhood sharing
+              </div>
+              <div className="px-5 py-3 text-white/70 sm:py-0">
+                Verified members
+              </div>
+              <div className="px-5 py-3 text-white/70 sm:py-0">
+                Zero platform fees
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* Editorial Footer */}

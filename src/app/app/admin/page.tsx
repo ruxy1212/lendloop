@@ -10,6 +10,7 @@ import { cn, fmtRange, toastError } from "@/lib/utils";
 import { toast } from "sonner";
 import type { Id } from "@/convex/_generated/dataModel";
 import { CardSkeleton } from "@/components/card-skeleton";
+import { Button } from "@/components/button";
 
 type AdminTab = "loans" | "lenders";
 
@@ -76,30 +77,22 @@ export default function AdminPage() {
 
         {/* Tab Switcher */}
         <div className="inline-flex rounded-2xl border border-white/10 bg-card/60 p-1 shadow-xs backdrop-blur-md">
-          <button
-            type="button"
+          <Button
+            variant={activeTab === "loans" ? "primary" : "ghost"}
+            size="sm"
             onClick={() => setActiveTab("loans")}
-            className={cn(
-              "rounded-xl px-4 py-1.5 text-xs sm:text-sm font-medium transition-colors outline-none",
-              activeTab === "loans"
-                ? "border border-primary/20 bg-primary-dark/70 text-white"
-                : "text-mute hover:text-ink"
-            )}
+            className="sm:text-sm"
           >
             All loans {allLoans ? `(${allLoans.length})` : ""}
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            variant={activeTab === "lenders" ? "primary" : "ghost"}
+            size="sm"
             onClick={() => setActiveTab("lenders")}
-            className={cn(
-              "rounded-xl px-4 py-1.5 text-xs sm:text-sm font-medium transition-colors outline-none",
-              activeTab === "lenders"
-                ? "border border-primary/20 bg-primary-dark/70 text-white"
-                : "text-mute hover:text-ink"
-            )}
+            className="sm:text-sm"
           >
             Lenders directory {lenders ? `(${lenders.length})` : ""}
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -186,14 +179,15 @@ export default function AdminPage() {
                       <span className="text-xs text-mute hidden sm:inline">
                         Trusted Lender
                       </span>
-                      <button
-                        type="button"
+                      <Button
+                        variant="ghost"
+                        size="icon"
                         role="switch"
                         aria-checked={u.trustedLender}
                         disabled={togglingId === u._id}
                         onClick={() => handleToggleTrusted(u._id, !u.trustedLender)}
                         className={cn(
-                          "flex h-7 w-12 items-center rounded-full p-1 transition-colors outline-none",
+                          "h-7 w-12 items-center rounded-full p-1",
                           u.trustedLender ? "justify-end bg-moss" : "justify-start bg-line",
                           togglingId === u._id ? "opacity-50" : ""
                         )}
@@ -203,7 +197,7 @@ export default function AdminPage() {
                           transition={spring}
                           className="size-5 rounded-full bg-paper shadow-xs"
                         />
-                      </button>
+                      </Button>
                     </div>
                   </motion.li>
                 ))}

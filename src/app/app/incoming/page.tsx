@@ -1,12 +1,12 @@
 "use client";
 
 import { useMemo } from "react";
-import Link from "next/link";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { LoanRow } from "@/components/loan-row";
 import { AnimatePresence } from "motion/react";
 import { CardSkeleton } from "@/components/card-skeleton";
+import { Button } from "@/components/button";
 
 export default function IncomingRequestsPage() {
   const incoming = useQuery(api.loans.incoming);
@@ -46,12 +46,9 @@ export default function IncomingRequestsPage() {
             When neighbors request to borrow your tools, you can review and
             approve them here.
           </p>
-          <Link
-            href="/app/listings"
-            className="mt-5 inline-flex h-10 items-center justify-center rounded-full bg-primary-dark px-5 text-sm font-medium text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] transition hover:bg-primary-dark/85 active:scale-95"
-          >
+          <Button href="/app/listings" className="mt-5 hover:text-purple-500">
             Manage your listings →
-          </Link>
+          </Button>
         </div>
       ) : (
         <div className="space-y-8">

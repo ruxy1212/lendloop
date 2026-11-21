@@ -11,6 +11,7 @@ import type { Doc, Id } from "@/convex/_generated/dataModel";
 import { motion, AnimatePresence } from "motion/react";
 import { spring } from "@/lib/motion";
 import { CardSkeleton } from "@/components/card-skeleton";
+import { Button } from "@/components/button";
 
 type ToolDoc = Doc<"tools">;
 
@@ -130,13 +131,14 @@ export default function MyListingsPage() {
           </p>
         </div>
 
-        <button
-          type="button"
+        <Button
+          variant="primary"
+          size="sm"
           onClick={openCreate}
-          className="inline-flex h-10 items-center justify-center rounded-2xl bg-primary-dark px-4 text-xs sm:text-sm font-medium text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] transition active:scale-95 hover:bg-primary-dark/85"
+          className="sm:text-sm hover:text-purple-500"
         >
           + New listing
-        </button>
+        </Button>
       </div>
 
       {/* Tools List */}
@@ -155,13 +157,13 @@ export default function MyListingsPage() {
           <p className="mt-1 text-sm text-mute">
             Add tools you own to start lending to your community.
           </p>
-          <button
-            type="button"
+          <Button
+            variant="primary"
             onClick={openCreate}
-            className="mt-5 h-10 rounded-full bg-primary-dark px-5 text-sm font-medium text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] transition hover:bg-primary-dark/85 active:scale-95"
+            className="mt-5 hover:text-purple-500"
           >
             List a tool
-          </button>
+          </Button>
         </div>
       ) : (
         <ul className="space-y-3">
@@ -194,25 +196,26 @@ export default function MyListingsPage() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <button
-                    type="button"
+                  <Button
+                    variant="secondary"
+                    size="sm"
                     onClick={() => openEdit(t)}
-                    className="h-9 rounded-xl border border-line px-3.5 text-xs font-medium text-ink transition hover:bg-paper active:scale-95"
                   >
                     Edit
-                  </button>
+                  </Button>
 
-                  <button
-                    type="button"
+                  <Button
+                    variant={confirmDeleteId === t._id ? "danger" : "secondary"}
+                    size="sm"
                     onClick={() => handleDelete(t._id)}
-                    className={`h-9 rounded-xl px-3.5 text-xs font-medium transition active:scale-95 ${
+                    className={
                       confirmDeleteId === t._id
-                        ? "bg-danger text-white shadow-xs"
-                        : "border border-line text-mute hover:text-danger hover:border-danger/30"
-                    }`}
+                        ? ""
+                        : "text-mute hover:border-danger/30 hover:text-danger"
+                    }
                   >
                     {confirmDeleteId === t._id ? "Sure?" : "Delete"}
-                  </button>
+                  </Button>
                 </div>
               </motion.li>
             ))}
@@ -303,17 +306,19 @@ export default function MyListingsPage() {
           </div>
 
           <div className="pt-2">
-            <button
+            <Button
               type="submit"
+              variant="primary"
+              size="lg"
               disabled={busy}
-              className="h-12 w-full rounded-2xl bg-primary-dark font-medium text-white shadow-[0_12px_35px_rgba(19,27,255,0.22)] transition hover:bg-primary-dark/85 active:scale-[0.98] disabled:opacity-40"
+              className="w-full hover:text-purple-500"
             >
               {busy
                 ? "Saving…"
                 : editingTool
                 ? "Save changes"
                 : "Publish listing"}
-            </button>
+            </Button>
           </div>
         </form>
       </Sheet>

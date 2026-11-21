@@ -43,15 +43,13 @@ export default function AppLayout({
               href="/"
               className="group flex items-center gap-2.5 outline-none"
             >
-              <div className="relative size-8 overflow-hidden rounded-xl border border-line/80 bg-card p-1 shadow-xs transition group-hover:scale-105">
-                <Image
-                  src="/logo.png"
-                  alt="LendLoop logo"
-                  width={32}
-                  height={32}
-                  className="object-contain"
-                />
-              </div>
+              <Image
+                src="/logo.png"
+                alt="LendLoop logo"
+                width={36}
+                height={36}
+                className="object-contain transition-transform duration-200 group-hover:scale-105"
+              />
               <span className="font-display text-2xl font-normal tracking-tight text-ink">
                 LendLoop
               </span>

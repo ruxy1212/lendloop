@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { toastError } from "@/lib/utils";
 import type { Id } from "@/convex/_generated/dataModel";
 import { CardSkeleton } from "@/components/card-skeleton";
+import { Button } from "@/components/button";
 
 export default function AppExplorePage() {
   const [search, setSearch] = useState("");
@@ -65,13 +66,14 @@ export default function AppExplorePage() {
             className="h-11 w-full rounded-2xl border border-white/10 bg-card/60 px-3.5 text-sm text-ink backdrop-blur-md placeholder:text-mute focus:border-primary/60 focus:ring-2 focus:ring-primary/10 focus:outline-none"
           />
           {search && (
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={() => setSearch("")}
-              className="absolute right-3 top-2.5 text-xs text-mute hover:text-ink"
+              className="absolute right-1 top-1 h-9 rounded-full px-3"
             >
               Clear
-            </button>
+            </Button>
           )}
         </div>
 
@@ -161,22 +163,24 @@ export default function AppExplorePage() {
                 <div className="mt-4 flex items-center justify-between border-t border-line/60 pt-3">
                   <div>
                     {me?.role === "admin" && (
-                      <button
-                        type="button"
+                      <Button
+                        variant="ghost"
+                        size="sm"
                         disabled={deletingId === t._id}
                         onClick={() => handleAdminRemove(t._id)}
-                        className="text-xs font-medium text-danger hover:underline disabled:opacity-50"
+                        className="px-0 text-danger hover:bg-transparent hover:text-danger/80"
                       >
                         {deletingId === t._id ? "Removing…" : "Remove"}
-                      </button>
+                      </Button>
                     )}
                   </div>
 
-                  <button
-                    type="button"
+                  <Button
+                    variant="ink"
+                    size="sm"
                     disabled={isOwner || isOnLoan || t.requestedByMe}
                     onClick={() => handleRequest(t)}
-                    className="h-9 rounded-xl bg-ink px-4 text-xs font-medium text-paper transition active:scale-95 disabled:bg-line disabled:text-mute disabled:cursor-not-allowed"
+                    className="disabled:bg-line disabled:text-mute"
                   >
                     {isOwner
                       ? "Your listing"
@@ -185,7 +189,7 @@ export default function AppExplorePage() {
                         : isOnLoan
                           ? "Unavailable"
                           : "Request"}
-                  </button>
+                  </Button>
                 </div>
               </div>
             );

@@ -3,7 +3,7 @@
 import { LayoutGroup, motion } from "motion/react";
 import { CATEGORIES } from "@/convex/constants";
 import { spring } from "@/lib/motion";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/button";
 
 interface CategoryFilterProps {
   id: string;
@@ -22,18 +22,14 @@ export function CategoryFilter({ id, value, onChange }: CategoryFilterProps) {
         {["all", ...CATEGORIES].map((c) => {
           const isSelected = value === c;
           return (
-            <button
+            <Button
               key={c}
-              type="button"
+              variant={isSelected ? "primary" : "secondary"}
+              size="sm"
               role="tab"
               aria-selected={isSelected}
               onClick={() => onChange(c)}
-              className={cn(
-                "relative shrink-0 rounded-full border border-transparent px-4 py-2 text-sm font-medium capitalize transition-colors duration-200 outline-none",
-                isSelected
-                  ? "border-primary/20 text-white"
-                  : "border-white/[0.06] bg-card/30 text-mute hover:border-primary/20 hover:text-ink"
-              )}
+              className="relative shrink-0 rounded-full px-4 py-2 text-sm capitalize"
             >
               {isSelected && (
                 <motion.span
@@ -43,7 +39,7 @@ export function CategoryFilter({ id, value, onChange }: CategoryFilterProps) {
                 />
               )}
               <span className="relative z-10">{c.replace("-", " ")}</span>
-            </button>
+            </Button>
           );
         })}
       </div>

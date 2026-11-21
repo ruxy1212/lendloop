@@ -7,6 +7,7 @@ import { SignInButton, UserButton } from "@clerk/nextjs";
 import { Authenticated, Unauthenticated } from "convex/react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/button";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -32,15 +33,13 @@ export function Header() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="group flex items-center gap-2.5 outline-none">
-          <div className="relative size-8 overflow-hidden rounded-xl border border-line/80 bg-card p-1 shadow-xs transition group-hover:scale-105">
-            <Image
-              src="/logo.png"
-              alt="LendLoop logo"
-              width={32}
-              height={32}
-              className="object-contain"
-            />
-          </div>
+          <Image
+            src="/logo.png"
+            alt="LendLoop logo"
+            width={36}
+            height={36}
+            className="object-contain transition-transform duration-200 group-hover:scale-105"
+          />
           <span className="font-display text-2xl font-normal tracking-tight text-ink">
             LendLoop
           </span>
@@ -49,24 +48,22 @@ export function Header() {
         <div className="flex items-center gap-3">
           <Unauthenticated>
             <SignInButton mode="modal">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-flex h-9 items-center justify-center rounded-full border border-white/10 bg-primary-dark/90 px-4 text-sm font-medium text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] transition-colors hover:border-primary/40 hover:bg-primary-dark"
-              >
+              <Button size="sm" className="border border-white/10">
                 Sign in
-              </motion.button>
+              </Button>
             </SignInButton>
           </Unauthenticated>
 
           <Authenticated>
             <div className="flex items-center gap-4">
-              <Link
-                href="/app"
-                className="inline-flex h-9 items-center rounded-full border border-white/10 bg-card/60 px-4 text-sm font-medium text-ink backdrop-blur-md transition hover:border-primary/40 hover:bg-primary-dark/20"
+              <motion.div
+                whileHover={{ y: -1, scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
               >
-                Explore tools →
-              </Link>
+                <Button href="/app" variant="secondary" size="sm" className="border-white/10 bg-card/60 backdrop-blur-md">
+                  Explore tools →
+                </Button>
+              </motion.div>
               <UserButton />
             </div>
           </Authenticated>

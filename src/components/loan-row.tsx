@@ -8,6 +8,7 @@ import { api } from "@/convex/_generated/api";
 import { StatusBadge, type LoanStatus } from "./status-badge";
 import { spring } from "@/lib/motion";
 import { ago, fmtRange, toastError } from "@/lib/utils";
+import { Button } from "./button";
 
 export type LoanItem = FunctionReturnType<typeof api.loans.incoming>[number];
 
@@ -70,8 +71,6 @@ export function LoanRow({
   const run = (p: Promise<unknown>, ok: string) =>
     p.then(() => toast.success(ok)).catch(toastError);
 
-  const btn = "h-9 rounded-xl px-3 text-xs sm:text-sm font-medium transition active:scale-95";
-
   return (
     <motion.li
       layout
@@ -97,9 +96,8 @@ export function LoanRow({
 
         {role === "owner" && loan.status === "pending" && (
           <>
-            <button
-              type="button"
-              className={`${btn} bg-primary-dark text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] hover:bg-primary-dark/85`}
+            <Button
+              size="sm"
               onClick={() =>
                 run(
                   decide({ loanId: loan._id, decision: "approve" }),
@@ -108,10 +106,10 @@ export function LoanRow({
               }
             >
               Approve
-            </button>
-            <button
-              type="button"
-              className={`${btn} border border-line hover:bg-paper`}
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
               onClick={() =>
                 run(
                   decide({ loanId: loan._id, decision: "decline" }),
@@ -120,30 +118,30 @@ export function LoanRow({
               }
             >
               Decline
-            </button>
+            </Button>
           </>
         )}
 
         {role === "owner" && loan.status === "approved" && (
-          <button
-            type="button"
-            className={`${btn} border border-line hover:bg-paper`}
+          <Button
+            variant="secondary"
+            size="sm"
             onClick={() =>
               run(markReturned({ loanId: loan._id }), "Marked returned.")
             }
           >
             Mark returned
-          </button>
+          </Button>
         )}
 
         {role === "borrower" && loan.status === "pending" && (
-          <button
-            type="button"
-            className={`${btn} border border-line hover:bg-paper text-mute hover:text-ink`}
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={() => run(cancel({ loanId: loan._id }), "Cancelled.")}
           >
             Cancel
-          </button>
+          </Button>
         )}
       </div>
     </motion.li>

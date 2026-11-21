@@ -18,7 +18,7 @@ export function Hero() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <div className="relative isolate pt-8 pb-5 sm:pt-14 sm:pb-7">
+    <section className="relative isolate flex min-h-[100svh] flex-col justify-center py-16">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute left-[28%] top-[-4rem] -z-10 h-72 w-[36rem] max-w-[90vw] rounded-full bg-[radial-gradient(circle,rgba(19,27,255,0.32),rgba(99,91,255,0.12)_42%,transparent_70%)] blur-2xl"
@@ -52,6 +52,6 @@ export function Hero() {
       <p className="mt-4 max-w-lg text-base text-mute sm:text-lg">
         A neighborhood tool-lending circle. Share utility, reduce waste, and build community trust.
       </p>
-    </div>
+    </section>
   );
 }

@@ -80,3 +80,17 @@ button[aria-busy="true"] {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@keyframes navigation-progress {
+  0% {
+    width: 12%;
+    transform: translateX(-110%);
+  }
+  55% {
+    width: 46%;
+  }
+  100% {
+    width: 18%;
+    transform: translateX(620%);
+  }
+}

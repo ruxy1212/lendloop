@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { LoanRow } from "@/components/loan-row";
 import { AnimatePresence } from "motion/react";
 import { CardSkeleton } from "@/components/card-skeleton";
+import { Button } from "@/components/button";
 
 export default function MyRequestsPage() {
   const requests = useQuery(api.loans.mine);
@@ -36,12 +36,9 @@ export default function MyRequestsPage() {
           <p className="mt-1 text-sm text-mute">
             Explore neighborhood tools and borrow what you need.
           </p>
-          <Link
-            href="/app"
-            className="mt-5 inline-flex h-10 items-center justify-center rounded-full bg-primary-dark px-5 text-sm font-medium text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] transition hover:bg-primary-dark/85 active:scale-95"
-          >
+          <Button href="/app" className="mt-5">
             Explore tools →
-          </Link>
+          </Button>
         </div>
       ) : (
         <ul className="space-y-3">
