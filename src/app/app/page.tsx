@@ -19,8 +19,8 @@ export default function AppExplorePage() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [deletingId, setDeletingId] = useState<Id<"tools"> | null>(null);
 
-  const tools = useQuery(api.tools.board);
   const me = useQuery(api.users.me);
+  const tools = useQuery(api.tools.board, me ? {} : "skip");
   const removeTool = useMutation(api.tools.remove);
 
   const filteredTools = useMemo(() => {

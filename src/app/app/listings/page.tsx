@@ -30,7 +30,8 @@ const emptyForm: ToolFormData = {
 };
 
 export default function MyListingsPage() {
-  const tools = useQuery(api.tools.mine);
+  const me = useQuery(api.users.me);
+  const tools = useQuery(api.tools.mine, me ? {} : "skip");
   const createTool = useMutation(api.tools.create);
   const updateTool = useMutation(api.tools.update);
   const removeTool = useMutation(api.tools.remove);

@@ -4,6 +4,15 @@ import type { Doc } from "../_generated/dataModel";
 
 type Ctx = QueryCtx | MutationCtx;
 
+export async function getOptionalUser(ctx: Ctx): Promise<Doc<"users"> | null> {
+  const identity = await ctx.auth.getUserIdentity();
+  if (!identity) return null;
+  return ctx.db
+    .query("users")
+    .withIndex("by_token", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
+    .unique();
+}
+
 export async function requireUser(ctx: Ctx): Promise<Doc<"users">> {
   const identity = await ctx.auth.getUserIdentity();
   if (!identity) throw new ConvexError({ code: "UNAUTHENTICATED" });

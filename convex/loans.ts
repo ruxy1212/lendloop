@@ -2,7 +2,7 @@ import { ConvexError, v } from "convex/values";
 import { internal } from "./_generated/api";
 import type { Doc } from "./_generated/dataModel";
 import { mutation, query, QueryCtx } from "./_generated/server";
-import { assertOwner, requireUser } from "./lib/auth";
+import { assertOwner, getOptionalUser, requireUser } from "./lib/auth";
 import { hasOverlap, todayUTC, validateRange } from "./lib/loans";
 
 async function hydrate(
@@ -37,7 +37,10 @@ async function hydrate(
 export const mine = query({
   args: {},
   handler: async (ctx) => {
-    const u = await requireUser(ctx);
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new ConvexError({ code: "UNAUTHENTICATED" });
+    const u = await getOptionalUser(ctx);
+    if (!u) return [];
     const rows = await ctx.db
       .query("loans")
       .withIndex("by_borrower", (q) => q.eq("borrowerId", u._id))
@@ -50,7 +53,8 @@ export const mine = query({
 export const incoming = query({
   args: {},
   handler: async (ctx) => {
-    const u = await requireUser(ctx);
+    const u = await getOptionalUser(ctx);
+    if (!u) return [];
     const rows = await ctx.db
       .query("loans")
       .withIndex("by_owner", (q) => q.eq("ownerId", u._id))

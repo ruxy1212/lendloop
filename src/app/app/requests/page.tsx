@@ -8,7 +8,8 @@ import { CardSkeleton } from "@/components/card-skeleton";
 import { Button } from "@/components/button";
 
 export default function MyRequestsPage() {
-  const requests = useQuery(api.loans.mine);
+  const me = useQuery(api.users.me);
+  const requests = useQuery(api.loans.mine, me ? {} : "skip");
 
   return (
     <div className="space-y-6">

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { UserButton } from "@clerk/nextjs";
+import { SignInButton, UserButton } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { LayoutGroup, motion } from "motion/react";
 import { api } from "@/convex/_generated/api";
@@ -16,10 +16,10 @@ export default function AppLayout({
 }: {
   children: React.ReactNode;
 }) {
-  useStoreUser();
+  const { isAuthenticated, isLoading: isAuthLoading } = useStoreUser();
   const path = usePathname();
   const me = useQuery(api.users.me);
-  const incoming = useQuery(api.loans.incoming);
+  const incoming = useQuery(api.loans.incoming, me ? {} : "skip");
   const pendingCount =
     incoming?.filter((l) => l.status === "pending").length ?? 0;
 
@@ -33,6 +33,42 @@ export default function AppLayout({
       : []),
   ];
 
+  if (!isAuthLoading && !isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-paper flex flex-col items-center justify-center p-6 text-center">
+        <div className="max-w-md w-full rounded-3xl border border-white/10 bg-[#0a0d3a]/60 p-8 backdrop-blur-xl shadow-2xl">
+          <Image
+            src="/logo.png"
+            alt="LendLoop logo"
+            width={48}
+            height={48}
+            className="mx-auto mb-4 object-contain"
+          />
+          <h2 className="text-2xl font-bold text-white mb-2">Sign in required</h2>
+          <p className="text-sm text-mute mb-6">
+            Please sign in to access the neighborhood lending board, manage your listings, and view loan requests.
+          </p>
+          <SignInButton mode="modal">
+            <button
+              type="button"
+              className="w-full rounded-full bg-[#131bff] hover:bg-[#182799] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all cursor-pointer"
+            >
+              Sign in to LendLoop
+            </button>
+          </SignInButton>
+          <div className="mt-4">
+            <Link
+              href="/"
+              className="text-xs text-mute hover:text-white transition-colors cursor-pointer"
+            >
+              ← Back to public catalog
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-paper flex flex-col">
       <div className="mx-auto w-full max-w-7xl flex-1 px-4 sm:px-6 pb-24">
@@ -41,7 +77,7 @@ export default function AppLayout({
           <div className="flex h-16 items-center justify-between">
             <Link
               href="/"
-              className="group flex items-center gap-2.5 outline-none"
+              className="group flex items-center gap-2.5 outline-none cursor-pointer"
             >
               <Image
                 src="/logo.png"
@@ -72,7 +108,7 @@ export default function AppLayout({
                     key={t.href}
                     href={t.href}
                     className={cn(
-                      "relative flex shrink-0 items-center gap-1.5 rounded-t-xl px-3.5 py-3 text-sm font-medium transition-colors outline-none",
+                      "relative flex shrink-0 items-center gap-1.5 rounded-t-xl px-3.5 py-3 text-sm font-medium transition-colors outline-none cursor-pointer",
                       active ? "text-ink" : "text-mute hover:text-ink"
                     )}
                   >

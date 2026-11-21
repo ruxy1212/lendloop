@@ -9,7 +9,8 @@ import { CardSkeleton } from "@/components/card-skeleton";
 import { Button } from "@/components/button";
 
 export default function IncomingRequestsPage() {
-  const incoming = useQuery(api.loans.incoming);
+  const me = useQuery(api.users.me);
+  const incoming = useQuery(api.loans.incoming, me ? {} : "skip");
 
   const { pendingLoans, activeAndPastLoans } = useMemo(() => {
     if (!incoming) return { pendingLoans: [], activeAndPastLoans: [] };

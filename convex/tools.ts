@@ -1,7 +1,7 @@
 import { ConvexError, v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { categoryV, conditionV } from "./constants";
-import { assertOwner, requireUser } from "./lib/auth";
+import { assertOwner, getOptionalUser, requireUser } from "./lib/auth";
 import { isOnLoan } from "./lib/loans";
 import type { Id } from "./_generated/dataModel";
 
@@ -40,7 +40,10 @@ export const publicList = query({
 export const board = query({
   args: {},
   handler: async (ctx) => {
-    const user = await requireUser(ctx);
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new ConvexError({ code: "UNAUTHENTICATED" });
+    const user = await getOptionalUser(ctx);
+    if (!user) return [];
     const tools = await ctx.db.query("tools").order("desc").take(200);
     return Promise.all(
       tools.map(async (t) => {
@@ -75,7 +78,10 @@ export const board = query({
 export const mine = query({
   args: {},
   handler: async (ctx) => {
-    const user = await requireUser(ctx);
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new ConvexError({ code: "UNAUTHENTICATED" });
+    const user = await getOptionalUser(ctx);
+    if (!user) return [];
     return ctx.db
       .query("tools")
       .withIndex("by_owner", (q) => q.eq("ownerId", user._id))

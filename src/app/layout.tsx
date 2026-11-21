@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Instrument_Serif } from "next/font/google";
+import { Toaster } from "sonner";
 import { Providers } from "@/components/convex-provider";
 import "./globals.css";
 
@@ -83,6 +84,7 @@ export default function RootLayout({
       <html lang="en" className={`${sans.variable} ${display.variable}`}>
         <body className="font-sans antialiased min-h-screen">
           <Providers>{children}</Providers>
+          <Toaster richColors theme="dark" position="bottom-right" />
         </body>
       </html>
     </ClerkProvider>
