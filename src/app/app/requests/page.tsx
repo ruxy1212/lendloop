@@ -37,7 +37,7 @@ export default function MyRequestsPage() {
           <p className="mt-1 text-sm text-mute">
             Explore neighborhood tools and borrow what you need.
           </p>
-          <Button href="/app" className="mt-5">
+          <Button href="/app" className="mt-5 hover:text-purple-500! border border-transparent hover:border-white">
             Explore tools →
           </Button>
         </div>

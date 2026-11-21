@@ -212,16 +212,24 @@ export default function AdminPage() {
                         aria-checked={u.trustedLender}
                         disabled={togglingId === u._id}
                         onClick={() => handleToggleTrusted(u._id, !u.trustedLender)}
+                        style={{
+                          backgroundColor: u.trustedLender ? "#05c2ff" : "rgba(255, 255, 255, 0.14)",
+                          borderColor: u.trustedLender ? "#05c2ff" : "rgba(255, 255, 255, 0.22)",
+                        }}
                         className={cn(
-                          "h-7 w-12 items-center rounded-full p-1",
-                          u.trustedLender ? "justify-end bg-moss" : "justify-start bg-line",
-                          togglingId === u._id ? "opacity-50" : ""
+                          "relative h-8 w-14 shrink-0 justify-start rounded-full! border p-1 transition-colors duration-200",
+                          "hover:bg-(--switch-bg)! focus-visible:ring-2 focus-visible:ring-[#05c2ff]/60",
+                          togglingId === u._id && "opacity-50"
                         )}
                       >
                         <motion.span
-                          layout
+                          initial={false}
+                          animate={{ x: u.trustedLender ? 24 : 0 }}
                           transition={spring}
-                          className="size-5 rounded-full bg-paper shadow-xs"
+                          style={{
+                            backgroundColor: "#fbfafe",
+                          }}
+                          className="block size-6 rounded-full shadow-sm"
                         />
                       </Button>
                     </div>

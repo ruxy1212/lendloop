@@ -47,7 +47,7 @@ export default function IncomingRequestsPage() {
             When neighbors request to borrow your tools, you can review and
             approve them here.
           </p>
-          <Button href="/app/listings" className="mt-5 hover:text-purple-500">
+          <Button href="/app/listings" className="mt-5 hover:text-purple-500! border border-transparent hover:border-white">
             Manage your listings →
           </Button>
         </div>

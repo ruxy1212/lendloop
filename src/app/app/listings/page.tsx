@@ -136,7 +136,7 @@ export default function MyListingsPage() {
           variant="primary"
           size="sm"
           onClick={openCreate}
-          className="sm:text-sm hover:text-purple-500"
+          className="sm:text-sm hover:text-purple-500! border border-transparent hover:border-white"
         >
           + New listing
         </Button>
@@ -161,7 +161,7 @@ export default function MyListingsPage() {
           <Button
             variant="primary"
             onClick={openCreate}
-            className="mt-5 hover:text-purple-500"
+            className="mt-5 hover:text-purple-500! border border-transparent hover:border-white"
           >
             List a tool
           </Button>
@@ -312,7 +312,7 @@ export default function MyListingsPage() {
               variant="primary"
               size="lg"
               disabled={busy}
-              className="w-full hover:text-purple-500"
+              className="w-full hover:text-purple-500! border border-transparent hover:border-white"
             >
               {busy
                 ? "Saving…"
