@@ -2,7 +2,6 @@ import { describe, it, expect } from "vitest";
 import { convexTest } from "convex-test";
 import schema from "./schema";
 import { api, internal } from "./_generated/api";
-import { ConvexError } from "convex/values";
 
 const modules = import.meta.glob("./**/*.*s");
 
@@ -329,7 +328,110 @@ describe("LendLoop RBAC and Security Invariants", () => {
     );
   });
 
-  it("Test 8: Double approval throws BAD_STATE", async () => {
+  it("Test 8: Pending requests reserve dates and cancellation releases them", async () => {
+    const t = createTest();
+
+    const userA = t.withIdentity({
+      tokenIdentifier: "pending_owner",
+      name: "Owner",
+      email: "owner@example.com",
+    });
+    await userA.mutation(api.users.store, {});
+
+    const userB = t.withIdentity({
+      tokenIdentifier: "pending_borrower",
+      name: "Borrower",
+      email: "borrower@example.com",
+    });
+    await userB.mutation(api.users.store, {});
+
+    const userC = t.withIdentity({
+      tokenIdentifier: "pending_other",
+      name: "Other Borrower",
+      email: "other@example.com",
+    });
+    await userC.mutation(api.users.store, {});
+
+    const toolId = await userA.mutation(api.tools.create, {
+      name: "Tile Cutter",
+      category: "power-tools",
+      condition: "good",
+      description: "Wet tile cutter.",
+    });
+
+    const dates = getFutureDates(10, 5);
+    const loanId = await userB.mutation(api.loans.request, {
+      toolId,
+      ...dates,
+    });
+
+    await expect(
+      userC.mutation(api.loans.request, {
+        toolId,
+        startDate: getFutureDates(12, 3).startDate,
+        endDate: getFutureDates(12, 3).endDate,
+      })
+    ).rejects.toThrowError(
+      expect.objectContaining({ data: { code: "CONFLICT" } })
+    );
+
+    const board = await userC.query(api.tools.board, {});
+    const card = board.find((item) => item._id === toolId);
+    expect(card?.requestedByMe).toBe(false);
+
+    await userB.mutation(api.loans.cancel, { loanId });
+
+    await userC.mutation(api.loans.request, {
+      toolId,
+      startDate: getFutureDates(12, 3).startDate,
+      endDate: getFutureDates(12, 3).endDate,
+    });
+
+    const borrowerBoard = await userB.query(api.tools.board, {});
+    expect(borrowerBoard.find((item) => item._id === toolId)?.requestedByMe).toBe(false);
+  });
+
+  it("Test 9: Owner decline releases pending dates", async () => {
+    const t = createTest();
+
+    const userA = t.withIdentity({
+      tokenIdentifier: "decline_owner",
+      name: "Owner",
+      email: "decline-owner@example.com",
+    });
+    await userA.mutation(api.users.store, {});
+
+    const userB = t.withIdentity({
+      tokenIdentifier: "decline_borrower",
+      name: "Borrower",
+      email: "decline-borrower@example.com",
+    });
+    await userB.mutation(api.users.store, {});
+
+    const toolId = await userA.mutation(api.tools.create, {
+      name: "Pressure Washer",
+      category: "garden",
+      condition: "good",
+      description: "Electric pressure washer.",
+    });
+
+    const dates = getFutureDates(20, 4);
+    const loanId = await userB.mutation(api.loans.request, {
+      toolId,
+      ...dates,
+    });
+    await userA.mutation(api.loans.decide, {
+      loanId,
+      decision: "decline",
+    });
+
+    await userB.mutation(api.loans.request, {
+      toolId,
+      ...dates,
+    });
+  });
+
+  it("Test 10: Double approval throws BAD_STATE", async () => {
     const t = createTest();
 
     const userA = t.withIdentity({

@@ -124,7 +124,11 @@ export default function AppBoardPage() {
                           isOnLoan ? "bg-ember" : "bg-moss"
                         }`}
                       />
-                      {isOnLoan ? "On loan" : "Available"}
+                      {t.requestedByMe
+                        ? "Pending request"
+                        : isOnLoan
+                          ? "On loan"
+                          : "Available"}
                     </span>
                   </div>
 
@@ -170,11 +174,17 @@ export default function AppBoardPage() {
 
                   <button
                     type="button"
-                    disabled={isOwner || isOnLoan}
+                    disabled={isOwner || isOnLoan || t.requestedByMe}
                     onClick={() => handleRequest(t)}
                     className="h-9 rounded-xl bg-ink px-4 text-xs font-medium text-paper transition active:scale-95 disabled:bg-line disabled:text-mute disabled:cursor-not-allowed"
                   >
-                    {isOwner ? "Your listing" : isOnLoan ? "Unavailable" : "Request"}
+                    {isOwner
+                      ? "Your listing"
+                      : t.requestedByMe
+                        ? "Pending"
+                        : isOnLoan
+                          ? "Unavailable"
+                          : "Request"}
                   </button>
                 </div>
               </div>

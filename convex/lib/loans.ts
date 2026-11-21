@@ -34,16 +34,24 @@ export async function hasOverlap(
   end: string,
   exclude?: Id<"loans">
 ): Promise<boolean> {
-  const approved = await ctx.db
-    .query("loans")
-    .withIndex("by_tool_status", (q) =>
-      q.eq("toolId", toolId).eq("status", "approved")
-    )
-    .collect();
+  for (const status of ["pending", "approved"] as const) {
+    const reserving = await ctx.db
+      .query("loans")
+      .withIndex("by_tool_status", (q) =>
+        q.eq("toolId", toolId).eq("status", status)
+      )
+      .take(500);
 
-  return approved.some(
-    (l) => l._id !== exclude && l.startDate <= end && start <= l.endDate
-  );
+    if (
+      reserving.some(
+        (l) => l._id !== exclude && l.startDate <= end && start <= l.endDate
+      )
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 // "On loan" = an approved, unreturned loan that has started (includes overdue).

@@ -60,18 +60,22 @@ export const incoming = query({
   },
 });
 
-// For the date picker: approved ranges only, no identities.
+// For the date picker: pending and approved ranges, with no identities.
 export const bookedRanges = query({
   args: { toolId: v.id("tools") },
   handler: async (ctx, { toolId }) => {
     await requireUser(ctx);
-    const rows = await ctx.db
-      .query("loans")
-      .withIndex("by_tool_status", (q) =>
-        q.eq("toolId", toolId).eq("status", "approved")
-      )
-      .collect();
-    return rows.map((l) => ({ from: l.startDate, to: l.endDate }));
+    const ranges: { from: string; to: string }[] = [];
+    for (const status of ["pending", "approved"] as const) {
+      const rows = await ctx.db
+        .query("loans")
+        .withIndex("by_tool_status", (q) =>
+          q.eq("toolId", toolId).eq("status", status)
+        )
+        .take(500);
+      ranges.push(...rows.map((l) => ({ from: l.startDate, to: l.endDate })));
+    }
+    return ranges;
   },
 });
 

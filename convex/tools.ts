@@ -40,12 +40,21 @@ export const publicList = query({
 export const board = query({
   args: {},
   handler: async (ctx) => {
-    await requireUser(ctx);
+    const user = await requireUser(ctx);
     const tools = await ctx.db.query("tools").order("desc").take(200);
     return Promise.all(
       tools.map(async (t) => {
         const owner = await ctx.db.get(t.ownerId);
         const onLoan = await isOnLoan(ctx, t._id);
+        const pendingRequest = await ctx.db
+          .query("loans")
+          .withIndex("by_borrower_tool_status", (q) =>
+            q
+              .eq("borrowerId", user._id)
+              .eq("toolId", t._id)
+              .eq("status", "pending")
+          )
+          .first();
         return {
           _id: t._id,
           name: t.name,
@@ -56,6 +65,7 @@ export const board = query({
           ownerName: owner?.name ?? "Neighbor",
           trusted: owner?.trustedLender ?? false,
           status: onLoan ? ("on_loan" as const) : ("available" as const),
+          requestedByMe: !!pendingRequest,
         };
       })
     );

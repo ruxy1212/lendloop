@@ -477,6 +477,14 @@ clickable. Use buttons or links for actual actions.
 - Verify approval and return lifecycle behavior
 - Add focused backend tests for cross-member overlap
 
+**Phase 4 implementation status: complete**
+
+- Pending and approved loans now both reserve dates in the request and approval mutations.
+- The date picker receives both pending and approved ranges without exposing identities.
+- The authenticated board identifies only whether the viewer already has a pending request.
+- Cancellation and owner decline return dates to availability.
+- Added focused tests for cross-member pending overlap, cancellation release, and decline release.
+
 ### Phase 5 — App shell and sub-pages
 
 - Restyle app navigation
@@ -497,11 +505,11 @@ clickable. Use buttons or links for actual actions.
 
 ## 11. Backend Verification Checklist
 
-- One borrower cannot submit two pending requests for the same tool
-- Two borrowers cannot submit overlapping pending ranges
-- Owner approval cannot create an overlap with any existing approved range
-- Declining a pending request releases proposed dates
-- Borrower cancellation of a pending request releases proposed dates
+- [x] One borrower cannot submit two pending requests for the same tool
+- [x] Two borrowers cannot submit overlapping pending ranges
+- [x] Owner approval cannot create an overlap with any existing approved range
+- [x] Declining a pending request releases proposed dates
+- [x] Borrower cancellation of a pending request releases proposed dates
 - Owner cannot cancel via the borrower-only mutation
 - Returned loans do not block future dates
 - Public catalogue does not expose owner identity or loan details
@@ -522,9 +530,9 @@ clickable. Use buttons or links for actual actions.
 - [x] Signed-in copy has no remaining sign-in CTA
 - [x] "Neighborhood tools" replaces "Public catalog"
 - [ ] `Board` is replaced or clearly justified as product language
-- [ ] Request cards show pending, unavailable, owner, and loan states
-- [ ] Pending and approved date overlap rules are covered by tests
-- [ ] Cancellation and decline release dates
+- [x] Request cards show pending, unavailable, owner, and loan states
+- [x] Pending and approved date overlap rules are covered by tests
+- [x] Cancellation and decline release dates
 - [x] Loading cards are stable and accessible
 - [x] Reduced-motion behavior is implemented
 - [ ] Keyboard, focus, contrast, and screen-reader states are usable
