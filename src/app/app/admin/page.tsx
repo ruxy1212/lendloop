@@ -9,6 +9,7 @@ import { spring } from "@/lib/motion";
 import { cn, fmtRange, toastError } from "@/lib/utils";
 import { toast } from "sonner";
 import type { Id } from "@/convex/_generated/dataModel";
+import { CardSkeleton } from "@/components/card-skeleton";
 
 type AdminTab = "loans" | "lenders";
 
@@ -37,16 +38,15 @@ export default function AdminPage() {
 
   if (me === undefined) {
     return (
-      <div className="space-y-4">
-        <div className="h-10 w-48 rounded-xl bg-line/60 animate-pulse" />
-        <div className="h-64 rounded-2xl border border-line bg-card p-6 animate-pulse" />
-      </div>
+      <CardSkeleton isLoading count={1} cardHeight={256} className="grid">
+        {null}
+      </CardSkeleton>
     );
   }
 
   if (!isAdmin) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-line bg-card/40 py-20 text-center">
+      <div className="flex flex-col items-center justify-center rounded-3xl border border-white/10 bg-card/50 py-20 text-center backdrop-blur-md">
         <div className="size-12 rounded-full bg-danger/10 flex items-center justify-center text-danger font-display text-xl mb-3">
           !
         </div>
@@ -75,14 +75,14 @@ export default function AdminPage() {
         </div>
 
         {/* Tab Switcher */}
-        <div className="inline-flex rounded-2xl border border-line bg-card p-1 shadow-xs">
+        <div className="inline-flex rounded-2xl border border-white/10 bg-card/60 p-1 shadow-xs backdrop-blur-md">
           <button
             type="button"
             onClick={() => setActiveTab("loans")}
             className={cn(
               "rounded-xl px-4 py-1.5 text-xs sm:text-sm font-medium transition-colors outline-none",
               activeTab === "loans"
-                ? "bg-ink text-paper"
+                ? "border border-primary/20 bg-primary-dark/70 text-white"
                 : "text-mute hover:text-ink"
             )}
           >
@@ -94,7 +94,7 @@ export default function AdminPage() {
             className={cn(
               "rounded-xl px-4 py-1.5 text-xs sm:text-sm font-medium transition-colors outline-none",
               activeTab === "lenders"
-                ? "bg-ink text-paper"
+                ? "border border-primary/20 bg-primary-dark/70 text-white"
                 : "text-mute hover:text-ink"
             )}
           >
@@ -107,16 +107,11 @@ export default function AdminPage() {
       {activeTab === "loans" && (
         <div>
           {allLoans === undefined ? (
-            <div className="space-y-3">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-20 rounded-2xl border border-line bg-card p-4 animate-pulse"
-                />
-              ))}
-            </div>
+            <CardSkeleton isLoading count={4} cardHeight={80} className="space-y-3">
+              {null}
+            </CardSkeleton>
           ) : allLoans.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-line bg-card/40 py-12 text-center">
+            <div className="rounded-2xl border border-white/10 bg-card/50 py-12 text-center backdrop-blur-md">
               <p className="text-sm font-medium text-mute">No loans recorded in the neighborhood yet.</p>
             </div>
           ) : (
@@ -129,7 +124,7 @@ export default function AdminPage() {
                     transition={spring}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line bg-card p-4 sm:p-5 shadow-xs"
+                    className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-card-border bg-card/60 p-4 shadow-xs backdrop-blur-md sm:p-5"
                   >
                     <div>
                       <h3 className="font-medium text-ink text-base">{l.toolName}</h3>
@@ -154,16 +149,11 @@ export default function AdminPage() {
       {activeTab === "lenders" && (
         <div>
           {lenders === undefined ? (
-            <div className="space-y-3">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-16 rounded-2xl border border-line bg-card p-4 animate-pulse"
-                />
-              ))}
-            </div>
+            <CardSkeleton isLoading count={4} cardHeight={64} className="space-y-3">
+              {null}
+            </CardSkeleton>
           ) : lenders.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-line bg-card/40 py-12 text-center">
+            <div className="rounded-2xl border border-white/10 bg-card/50 py-12 text-center backdrop-blur-md">
               <p className="text-sm font-medium text-mute">No members registered yet.</p>
             </div>
           ) : (
@@ -176,7 +166,7 @@ export default function AdminPage() {
                     transition={spring}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center justify-between gap-4 rounded-2xl border border-line bg-card p-4 sm:p-5 shadow-xs"
+                    className="flex items-center justify-between gap-4 rounded-2xl border border-card-border bg-card/60 p-4 shadow-xs backdrop-blur-md sm:p-5"
                   >
                     <div>
                       <div className="flex items-center gap-2">

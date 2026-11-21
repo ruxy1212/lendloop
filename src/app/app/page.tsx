@@ -5,16 +5,16 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { CategoryFilter } from "@/components/category-filter";
 import { ToolGrid } from "@/components/tool-grid";
-import { RequestSheet, type BoardTool } from "@/components/request-sheet";
+import { RequestSheet, type ExploreTool } from "@/components/request-sheet";
 import { toast } from "sonner";
 import { toastError } from "@/lib/utils";
 import type { Id } from "@/convex/_generated/dataModel";
 import { CardSkeleton } from "@/components/card-skeleton";
 
-export default function AppBoardPage() {
+export default function AppExplorePage() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
-  const [selectedTool, setSelectedTool] = useState<BoardTool | null>(null);
+  const [selectedTool, setSelectedTool] = useState<ExploreTool | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [deletingId, setDeletingId] = useState<Id<"tools"> | null>(null);
 
@@ -35,7 +35,7 @@ export default function AppBoardPage() {
     });
   }, [tools, category, search]);
 
-  const handleRequest = (tool: BoardTool) => {
+  const handleRequest = (tool: ExploreTool) => {
     setSelectedTool(tool);
     setSheetOpen(true);
   };
@@ -76,7 +76,7 @@ export default function AppBoardPage() {
         </div>
 
         <CategoryFilter
-          id="board-filter"
+          id="explore-filter"
           value={category}
           onChange={setCategory}
         />

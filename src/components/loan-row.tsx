@@ -79,7 +79,7 @@ export function LoanRow({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.97 }}
-      className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-card p-4 sm:p-5 shadow-xs"
+      className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-card-border bg-card/60 p-4 shadow-[0_10px_30px_rgba(0,0,0,0.10)] backdrop-blur-md sm:p-5"
     >
       <div>
         <h3 className="font-medium text-ink text-base">{loan.toolName}</h3>
@@ -99,7 +99,7 @@ export function LoanRow({
           <>
             <button
               type="button"
-              className={`${btn} bg-ink text-paper hover:bg-ink/90`}
+              className={`${btn} bg-primary-dark text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] hover:bg-primary-dark/85`}
               onClick={() =>
                 run(
                   decide({ loanId: loan._id, decision: "approve" }),

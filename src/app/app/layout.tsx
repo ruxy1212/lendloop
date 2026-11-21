@@ -24,7 +24,7 @@ export default function AppLayout({
     incoming?.filter((l) => l.status === "pending").length ?? 0;
 
   const tabs = [
-    { href: "/app", label: "Board" },
+    { href: "/app", label: "Explore tools" },
     { href: "/app/listings", label: "My listings" },
     { href: "/app/requests", label: "My requests" },
     { href: "/app/incoming", label: "Incoming", badge: pendingCount },
@@ -37,7 +37,7 @@ export default function AppLayout({
     <div className="min-h-screen bg-paper flex flex-col">
       <div className="mx-auto w-full max-w-7xl flex-1 px-4 sm:px-6 pb-24">
         {/* Sticky App Header */}
-        <header className="sticky top-0 z-30 -mx-4 sm:-mx-6 bg-paper/85 px-4 sm:px-6 backdrop-blur-md border-b border-line/60">
+        <header className="sticky top-0 z-30 -mx-4 border-b border-white/[0.08] bg-paper/75 px-4 backdrop-blur-xl sm:-mx-6 sm:px-6">
           <div className="flex h-16 items-center justify-between">
             <Link
               href="/"
@@ -63,7 +63,7 @@ export default function AppLayout({
           <LayoutGroup id="nav">
             <nav
               aria-label="App Navigation"
-              className="no-scrollbar -mb-px flex gap-1 overflow-x-auto"
+              className="no-scrollbar -mb-px flex gap-1.5 overflow-x-auto"
             >
               {tabs.map((t) => {
                 const active =
@@ -74,7 +74,7 @@ export default function AppLayout({
                     key={t.href}
                     href={t.href}
                     className={cn(
-                      "relative flex shrink-0 items-center gap-1.5 px-3.5 py-3 text-sm font-medium transition-colors outline-none",
+                      "relative flex shrink-0 items-center gap-1.5 rounded-t-xl px-3.5 py-3 text-sm font-medium transition-colors outline-none",
                       active ? "text-ink" : "text-mute hover:text-ink"
                     )}
                   >
@@ -93,7 +93,7 @@ export default function AppLayout({
                       <motion.span
                         layoutId="tab-underline"
                         transition={spring}
-                        className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-ink"
+                        className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-primary shadow-[0_0_10px_rgba(5,194,255,0.8)]"
                       />
                     )}
                   </Link>

@@ -133,7 +133,7 @@ export default function MyListingsPage() {
         <button
           type="button"
           onClick={openCreate}
-          className="inline-flex h-10 items-center justify-center rounded-2xl bg-ink px-4 text-xs sm:text-sm font-medium text-paper transition active:scale-95 hover:bg-ink/90"
+          className="inline-flex h-10 items-center justify-center rounded-2xl bg-primary-dark px-4 text-xs sm:text-sm font-medium text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] transition active:scale-95 hover:bg-primary-dark/85"
         >
           + New listing
         </button>
@@ -158,7 +158,7 @@ export default function MyListingsPage() {
           <button
             type="button"
             onClick={openCreate}
-            className="mt-5 h-10 rounded-full bg-ink px-5 text-sm font-medium text-paper transition hover:bg-ink/90 active:scale-95"
+            className="mt-5 h-10 rounded-full bg-primary-dark px-5 text-sm font-medium text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] transition hover:bg-primary-dark/85 active:scale-95"
           >
             List a tool
           </button>
@@ -174,7 +174,7 @@ export default function MyListingsPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.97 }}
-                className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line bg-card p-5 shadow-xs transition hover:shadow-xs"
+                className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-card-border bg-card/60 p-5 shadow-xs backdrop-blur-md transition hover:border-card-border-hover hover:shadow-[0_18px_45px_rgba(5,194,255,0.08)]"
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -306,7 +306,7 @@ export default function MyListingsPage() {
             <button
               type="submit"
               disabled={busy}
-              className="h-12 w-full rounded-2xl bg-ink font-medium text-paper transition active:scale-[0.98] disabled:opacity-40"
+              className="h-12 w-full rounded-2xl bg-primary-dark font-medium text-white shadow-[0_12px_35px_rgba(19,27,255,0.22)] transition hover:bg-primary-dark/85 active:scale-[0.98] disabled:opacity-40"
             >
               {busy
                 ? "Saving…"

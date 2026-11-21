@@ -48,7 +48,7 @@ export default function IncomingRequestsPage() {
           </p>
           <Link
             href="/app/listings"
-            className="mt-5 inline-flex h-10 items-center justify-center rounded-full bg-ink px-5 text-sm font-medium text-paper transition hover:bg-ink/90 active:scale-95"
+            className="mt-5 inline-flex h-10 items-center justify-center rounded-full bg-primary-dark px-5 text-sm font-medium text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] transition hover:bg-primary-dark/85 active:scale-95"
           >
             Manage your listings →
           </Link>

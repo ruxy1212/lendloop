@@ -492,6 +492,15 @@ clickable. Use buttons or links for actual actions.
 - Remove remaining `Board` labels where direct product language is clearer
 - Verify sheets, focus states, and responsive wrapping
 
+**Phase 5 implementation status: complete**
+
+- Renamed the app navigation’s first destination to “Explore tools.”
+- Restyled the sticky app header and active navigation indicator as glass/cyan surfaces.
+- Added glass styling to request sheets and listing sheets.
+- Restyled loan rows, listing cards, primary actions, and empty states.
+- Replaced admin loading and empty surfaces with the shared loading/card treatment.
+- Removed remaining visible “Board” wording from app copy.
+
 ### Phase 6 — Verification and cleanup
 
 - Test at required viewport widths
@@ -529,7 +538,7 @@ clickable. Use buttons or links for actual actions.
 - [x] Signed-out copy has no authenticated-only phrasing
 - [x] Signed-in copy has no remaining sign-in CTA
 - [x] "Neighborhood tools" replaces "Public catalog"
-- [ ] `Board` is replaced or clearly justified as product language
+- [x] `Board` is replaced or clearly justified as product language
 - [x] Request cards show pending, unavailable, owner, and loan states
 - [x] Pending and approved date overlap rules are covered by tests
 - [x] Cancellation and decline release dates

@@ -21,7 +21,7 @@ export function Sheet({ open, onOpenChange, title, children }: SheetProps) {
           <Dialog.Portal forceMount>
             <Dialog.Overlay asChild>
               <motion.div
-                className="fixed inset-0 z-40 bg-ink/30 backdrop-blur-[2px]"
+                className="fixed inset-0 z-40 bg-[#01010c]/75 backdrop-blur-md"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -29,7 +29,7 @@ export function Sheet({ open, onOpenChange, title, children }: SheetProps) {
             </Dialog.Overlay>
             <Dialog.Content asChild aria-describedby={undefined}>
               <motion.div
-                className="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-lg rounded-t-[28px] border-t border-line/60 bg-card p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-2xl outline-none"
+                className="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-lg rounded-t-[28px] border-t border-white/10 bg-card/95 p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-[0_-20px_60px_rgba(5,194,255,0.10)] backdrop-blur-xl outline-none"
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
                 exit={{ y: "100%" }}

@@ -34,13 +34,13 @@ export default function MyRequestsPage() {
         <div className="relative isolate flex flex-col items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-card/50 py-16 text-center backdrop-blur-md">
           <p className="text-base font-medium text-ink">No requests made yet</p>
           <p className="mt-1 text-sm text-mute">
-            Explore the neighborhood board and borrow what you need.
+            Explore neighborhood tools and borrow what you need.
           </p>
           <Link
             href="/app"
-            className="mt-5 inline-flex h-10 items-center justify-center rounded-full bg-ink px-5 text-sm font-medium text-paper transition hover:bg-ink/90 active:scale-95"
+            className="mt-5 inline-flex h-10 items-center justify-center rounded-full bg-primary-dark px-5 text-sm font-medium text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] transition hover:bg-primary-dark/85 active:scale-95"
           >
-            Browse the board →
+            Explore tools →
           </Link>
         </div>
       ) : (
