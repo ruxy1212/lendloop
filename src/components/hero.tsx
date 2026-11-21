@@ -102,27 +102,28 @@ export function Hero() {
         >
           <motion.div
             aria-label="LendLoop logo"
-            className="relative isolate w-full overflow-hidden rounded-[28px] p-px shadow-[0_24px_70px_rgba(19,27,255,0.18)]"
+            className="relative isolate w-full overflow-hidden rounded-[82px] p-1.5 shadow-[0_24px_70px_rgba(19,27,255,0.18)]"
           >
             <motion.span
               aria-hidden="true"
-              className="absolute -inset-[150%] bg-[conic-gradient(from_180deg,#05c2ff,#635bff,#fbfafe,#f08cff,#05c2ff)]"
+              className="absolute -inset-[50%] bg-[conic-gradient(from_0deg,transparent_0deg,transparent_210deg,#ff2a5f_245deg,#ff9f1c_270deg,#ffeb3b_295deg,#00d68f_315deg,#05c2ff_335deg,#a855f7_360deg)]"
               animate={reduceMotion ? undefined : { rotate: 360 }}
               transition={
                 reduceMotion
                   ? undefined
-                  : { duration: 18, ease: "linear", repeat: Infinity }
+                  : { duration: 2.2, ease: "linear", repeat: Infinity }
               }
             />
-            <div className="relative flex aspect-square w-full items-center justify-center rounded-[27px] bg-card/95 p-10 backdrop-blur-md">
-              <div className="relative size-32 sm:size-36">
+            <div className="relative flex aspect-square w-full items-center justify-center rounded-[82px] bg-card/95 backdrop-blur-md">
+              <div className="relative w-full h-full">
                 <Image
                   src="/logo.png"
                   alt="LendLoop"
                   fill
+                  unoptimized
                   priority
                   sizes="(max-width: 1024px) 144px, 160px"
-                  className="object-contain"
+                  className="object-contain w-full h-full"
                 />
               </div>
             </div>
