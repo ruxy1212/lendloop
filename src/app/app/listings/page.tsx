@@ -10,6 +10,7 @@ import { toastError } from "@/lib/utils";
 import type { Doc, Id } from "@/convex/_generated/dataModel";
 import { motion, AnimatePresence } from "motion/react";
 import { spring } from "@/lib/motion";
+import { CardSkeleton } from "@/components/card-skeleton";
 
 type ToolDoc = Doc<"tools">;
 
@@ -140,16 +141,16 @@ export default function MyListingsPage() {
 
       {/* Tools List */}
       {tools === undefined ? (
-        <div className="space-y-3">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <div
-              key={i}
-              className="h-28 rounded-2xl border border-line bg-card p-5 animate-pulse"
-            />
-          ))}
-        </div>
+        <CardSkeleton
+          isLoading
+          count={3}
+          cardHeight={112}
+          className="space-y-3"
+        >
+          {null}
+        </CardSkeleton>
       ) : tools.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-line bg-card/40 py-16 text-center">
+        <div className="relative isolate flex flex-col items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-card/50 py-16 text-center backdrop-blur-md">
           <p className="text-base font-medium text-ink">You have no listings yet</p>
           <p className="mt-1 text-sm text-mute">
             Add tools you own to start lending to your community.

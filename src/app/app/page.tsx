@@ -9,33 +9,7 @@ import { RequestSheet, type BoardTool } from "@/components/request-sheet";
 import { toast } from "sonner";
 import { toastError } from "@/lib/utils";
 import type { Id } from "@/convex/_generated/dataModel";
-
-function BoardSkeletons({ count = 6 }: { count?: number }) {
-  return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {Array.from({ length: count }).map((_, i) => (
-        <div
-          key={i}
-          className="flex h-52 flex-col justify-between rounded-2xl border border-line/60 bg-card p-5 animate-pulse"
-        >
-          <div className="flex justify-between">
-            <div className="h-4 w-20 rounded-full bg-line/60" />
-            <div className="h-4 w-16 rounded-full bg-line/50" />
-          </div>
-          <div className="space-y-2">
-            <div className="h-5 w-3/4 rounded-md bg-line/80" />
-            <div className="h-3 w-full rounded-md bg-line/40" />
-            <div className="h-3 w-2/3 rounded-md bg-line/40" />
-          </div>
-          <div className="flex items-center justify-between pt-2">
-            <div className="h-4 w-24 rounded-md bg-line/50" />
-            <div className="h-8 w-20 rounded-xl bg-line/60" />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
+import { CardSkeleton } from "@/components/card-skeleton";
 
 export default function AppBoardPage() {
   const [search, setSearch] = useState("");
@@ -88,7 +62,7 @@ export default function AppBoardPage() {
             placeholder="Search tools or lenders…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="h-10 w-full rounded-2xl border border-line bg-card px-3.5 text-sm text-ink placeholder:text-mute focus:border-ink focus:outline-none"
+            className="h-11 w-full rounded-2xl border border-white/10 bg-card/60 px-3.5 text-sm text-ink backdrop-blur-md placeholder:text-mute focus:border-primary/60 focus:ring-2 focus:ring-primary/10 focus:outline-none"
           />
           {search && (
             <button
@@ -110,9 +84,16 @@ export default function AppBoardPage() {
 
       {/* Grid or Skeletons */}
       {tools === undefined ? (
-        <BoardSkeletons count={6} />
+        <CardSkeleton
+          isLoading
+          count={6}
+          cardHeight={208}
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {null}
+        </CardSkeleton>
       ) : filteredTools.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-line bg-card/40 py-16 text-center">
+        <div className="relative isolate flex flex-col items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-card/50 py-16 text-center backdrop-blur-md">
           <p className="text-base font-medium text-ink">No tools match your criteria</p>
           <p className="mt-1 text-sm text-mute">
             Try adjusting your search terms or selecting another category.
@@ -126,7 +107,7 @@ export default function AppBoardPage() {
             const isOnLoan = t.status === "on_loan";
 
             return (
-              <div className="flex h-full w-full flex-col justify-between rounded-2xl border border-line bg-card p-5 transition-shadow hover:shadow-xs">
+              <div className="flex h-full w-full flex-col justify-between rounded-2xl border border-card-border bg-card/60 p-5 backdrop-blur-md transition duration-200 hover:-translate-y-1 hover:border-card-border-hover hover:shadow-[0_18px_45px_rgba(5,194,255,0.10)]">
                 {/* Header row: category + availability */}
                 <div>
                   <div className="flex items-center justify-between">

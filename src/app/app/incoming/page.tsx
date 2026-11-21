@@ -6,6 +6,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { LoanRow } from "@/components/loan-row";
 import { AnimatePresence } from "motion/react";
+import { CardSkeleton } from "@/components/card-skeleton";
 
 export default function IncomingRequestsPage() {
   const incoming = useQuery(api.loans.incoming);
@@ -28,16 +29,16 @@ export default function IncomingRequestsPage() {
       </div>
 
       {incoming === undefined ? (
-        <div className="space-y-3">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <div
-              key={i}
-              className="h-24 rounded-2xl border border-line bg-card p-5 animate-pulse"
-            />
-          ))}
-        </div>
+        <CardSkeleton
+          isLoading
+          count={3}
+          cardHeight={96}
+          className="space-y-3"
+        >
+          {null}
+        </CardSkeleton>
       ) : incoming.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-line bg-card/40 py-16 text-center">
+        <div className="relative isolate flex flex-col items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-card/50 py-16 text-center backdrop-blur-md">
           <p className="text-base font-medium text-ink">
             No incoming requests yet
           </p>

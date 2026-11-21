@@ -10,29 +10,11 @@ import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
 import { CategoryFilter } from "@/components/category-filter";
 import { ToolGrid } from "@/components/tool-grid";
-
-function Skeletons({ count = 6 }: { count?: number }) {
-  return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {Array.from({ length: count }).map((_, i) => (
-        <div
-          key={i}
-          className="flex h-32 flex-col justify-between rounded-2xl border border-line/60 bg-card p-5 animate-pulse"
-        >
-          <div className="h-4 w-20 rounded-full bg-line/60" />
-          <div className="space-y-2">
-            <div className="h-5 w-3/4 rounded-md bg-line/80" />
-            <div className="h-3 w-1/3 rounded-md bg-line/40" />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
+import { CardSkeleton } from "@/components/card-skeleton";
 
 function EmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-line bg-card/50 py-16 text-center">
+    <div className="relative isolate flex flex-col items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-card/50 py-16 text-center backdrop-blur-md">
       <p className="text-base font-medium text-ink">No tools listed yet</p>
       <p className="mt-1 text-sm text-mute">
         Be the first neighbor to share what you have.
@@ -131,14 +113,21 @@ export default function HomePage() {
 
         {/* Grid / Skeletons / Empty */}
         {tools === undefined ? (
-          <Skeletons count={6} />
+          <CardSkeleton
+            isLoading
+            count={6}
+            cardHeight={144}
+            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {null}
+          </CardSkeleton>
         ) : filteredTools.length === 0 ? (
           <EmptyState />
         ) : (
           <ToolGrid
             items={filteredTools}
             render={(t) => (
-              <div className="flex h-36 w-full flex-col justify-between rounded-2xl border border-line bg-card p-5 transition-shadow hover:shadow-xs">
+              <div className="flex h-36 w-full flex-col justify-between rounded-2xl border border-card-border bg-card/60 p-5 backdrop-blur-md transition duration-200 hover:-translate-y-1 hover:border-card-border-hover hover:shadow-[0_18px_45px_rgba(5,194,255,0.10)]">
                 <div className="flex items-center justify-between">
                   <span className="rounded-full bg-paper px-2.5 py-0.5 text-[11px] font-medium text-mute capitalize">
                     {t.category.replace("-", " ")}

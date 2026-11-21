@@ -459,6 +459,16 @@ clickable. Use buttons or links for actual actions.
 - Implement clear card state labels
 - Improve empty states
 
+**Phase 3 implementation status: complete**
+
+- Added a reusable shimmer card component adapted from `docs/loading_card.tsx`.
+- Replaced public, board, listings, request, and incoming pulse skeletons.
+- Matched loading heights to their corresponding card surfaces.
+- Added reduced-motion shimmer fallback and accessible loading status attributes.
+- Restyled tool cards with midnight glass surfaces, cyan edge glows, and lift motion.
+- Restyled category pills and the board search focus state.
+- Replaced dashed empty states with atmospheric glass panels.
+
 ### Phase 4 — Backend request reservation rules
 
 - Extend Convex queries with the authenticated member's pending state
@@ -515,10 +525,10 @@ clickable. Use buttons or links for actual actions.
 - [ ] Request cards show pending, unavailable, owner, and loan states
 - [ ] Pending and approved date overlap rules are covered by tests
 - [ ] Cancellation and decline release dates
-- [ ] Loading cards are stable and accessible
-- [ ] Reduced-motion behavior is implemented
+- [x] Loading cards are stable and accessible
+- [x] Reduced-motion behavior is implemented
 - [ ] Keyboard, focus, contrast, and screen-reader states are usable
-- [ ] The public catalogue and authenticated board remain visually consistent
+- [x] The public catalogue and authenticated board remain visually consistent
 - [ ] Lint and build pass
 
 ## 13. Revised Plan Checklist
