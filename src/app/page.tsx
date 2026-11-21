@@ -165,7 +165,7 @@ export default function HomePage() {
       <footer className="border-t border-line/60 py-8 bg-paper">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-center sm:flex-row sm:text-left sm:px-6">
           <p className="text-xs text-mute">
-            © {new Date().getFullYear()} LendLoop · Borrow what you need. Lend what you don’t.
+            © LendLoop · Borrow what you need. Lend what you don’t.
           </p>
           <div className="flex items-center gap-6 text-xs text-mute">
             <span>Minimum data sharing</span>

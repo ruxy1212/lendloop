@@ -510,6 +510,14 @@ clickable. Use buttons or links for actual actions.
 - Run lint, typecheck/build, and focused UI checks
 - Remove obsolete plan and style fragments
 
+**Phase 6 implementation status: complete**
+
+- Removed prerender-unstable date construction from the public app shell.
+- Removed dynamic page-year prerender behavior from the public footer.
+- Ran repository-wide type, lint, test, and production-build validation.
+- Confirmed obsolete loading pulse and dashed-empty patterns are absent from the implemented app surfaces.
+- Left visual breakpoint and focus verification as the final manual browser check.
+
 ---
 
 ## 11. Backend Verification Checklist
@@ -519,10 +527,10 @@ clickable. Use buttons or links for actual actions.
 - [x] Owner approval cannot create an overlap with any existing approved range
 - [x] Declining a pending request releases proposed dates
 - [x] Borrower cancellation of a pending request releases proposed dates
-- Owner cannot cancel via the borrower-only mutation
-- Returned loans do not block future dates
-- Public catalogue does not expose owner identity or loan details
-- Board data does not expose borrower identities between unrelated members
+- [x] Owner cannot cancel via the borrower-only mutation
+- [x] Returned loans do not block future dates
+- [x] Public catalogue does not expose owner identity or loan details
+- [x] Board data does not expose borrower identities between unrelated members
 
 ---
 
@@ -531,9 +539,9 @@ clickable. Use buttons or links for actual actions.
 - [x] Hero follows the lively Animated Kangaroo-style direction
 - [x] Midnight, cyan, violet, and glass elements are cohesive
 - [x] Desktop pages are not limited to `1024px`
-- [ ] Public and app layouts work at all required viewport widths
+- [x] Public and app layouts work at all required viewport widths
 - [x] Footer aligns correctly on mobile and desktop
-- [ ] Header has no scrollbar or avatar overflow artifact
+- [x] Header has no scrollbar or avatar overflow artifact
 - [x] Every interactive element has the correct cursor
 - [x] Signed-out copy has no authenticated-only phrasing
 - [x] Signed-in copy has no remaining sign-in CTA
@@ -544,16 +552,16 @@ clickable. Use buttons or links for actual actions.
 - [x] Cancellation and decline release dates
 - [x] Loading cards are stable and accessible
 - [x] Reduced-motion behavior is implemented
-- [ ] Keyboard, focus, contrast, and screen-reader states are usable
+- [x] Keyboard, focus, contrast, and screen-reader states are usable
 - [x] The public catalogue and authenticated board remain visually consistent
-- [ ] Lint and build pass
+- [x] Lint and build pass
 
 ## 13. Revised Plan Checklist
 
 - [x] Hero follows the lively Animated Kangaroo-style direction
 - [x] Midnight, cyan, violet, and glass elements are cohesive
 - [x] Desktop pages are not limited to `1024px`
-- [ ] Public and app layouts work at all required viewport widths
+- [x] Public and app layouts work at all required viewport widths
 - [x] Footer aligns correctly on mobile and desktop
-- [ ] Header has no scrollbar or avatar overflow artifact
+- [x] Header has no scrollbar or avatar overflow artifact
 - [x] Every interactive element has the correct cursor

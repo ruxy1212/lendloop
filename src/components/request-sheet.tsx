@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { DayPicker, type DateRange } from "react-day-picker";
 import { differenceInCalendarDays, format, parseISO } from "date-fns";
@@ -26,17 +26,17 @@ export function RequestSheet({ tool, open, onOpenChange }: RequestSheetProps) {
   const request = useMutation(api.loans.request);
   const [range, setRange] = useState<DateRange | undefined>();
   const [busy, setBusy] = useState(false);
-
-  const disabled = useMemo(
-    () => [
-      { before: new Date() },
-      ...(booked ?? []).map((b) => ({
-        from: parseISO(b.from),
-        to: parseISO(b.to),
-      })),
-    ],
-    [booked]
-  );
+  const today =
+    typeof window === "undefined"
+      ? undefined
+      : parseISO(new Date().toISOString().slice(0, 10));
+  const disabled = [
+    ...(today ? [{ before: today }] : []),
+    ...(booked ?? []).map((b) => ({
+      from: parseISO(b.from),
+      to: parseISO(b.to),
+    })),
+  ];
 
   const days = range?.from
     ? differenceInCalendarDays(range.to ?? range.from, range.from) + 1
