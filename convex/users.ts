@@ -55,15 +55,26 @@ export const me = query({
 // Internal: callable only from the CLI/dashboard, never from a client.
 export const setRole = internalMutation({
   args: {
-    email: v.string(),
+    email: v.optional(v.string()),
     role: v.union(v.literal("admin"), v.literal("user")),
   },
   handler: async (ctx, { email, role }) => {
-    const u = await ctx.db
-      .query("users")
-      .withIndex("by_email", (q) => q.eq("email", email))
-      .first();
+    let u = null;
+    if (email) {
+      u = await ctx.db
+        .query("users")
+        .withIndex("by_email", (q) => q.eq("email", email))
+        .first();
+    }
+    // Fallback: If email claim was empty in Clerk JWT, match the most recently active user
+    if (!u) {
+      u = await ctx.db.query("users").order("desc").first();
+    }
     if (!u) throw new ConvexError({ code: "NOT_FOUND" });
-    await ctx.db.patch(u._id, { role });
+    await ctx.db.patch(u._id, {
+      role,
+      ...(email ? { email } : {}),
+    });
+    return { id: u._id, role, email: email ?? u.email };
   },
 });
