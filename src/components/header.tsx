@@ -52,7 +52,7 @@ export function Header() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex h-9 items-center justify-center rounded-full bg-ink px-4 text-sm font-medium text-paper transition-colors hover:bg-ink/90 active:scale-95"
+                className="inline-flex h-9 items-center justify-center rounded-full border border-white/10 bg-primary-dark/90 px-4 text-sm font-medium text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] transition-colors hover:border-primary/40 hover:bg-primary-dark"
               >
                 Sign in
               </motion.button>
@@ -63,9 +63,9 @@ export function Header() {
             <div className="flex items-center gap-4">
               <Link
                 href="/app"
-                className="text-sm font-medium text-mute transition hover:text-ink"
+                className="inline-flex h-9 items-center rounded-full border border-white/10 bg-card/60 px-4 text-sm font-medium text-ink backdrop-blur-md transition hover:border-primary/40 hover:bg-primary-dark/20"
               >
-                Board →
+                Explore tools →
               </Link>
               <UserButton />
             </div>

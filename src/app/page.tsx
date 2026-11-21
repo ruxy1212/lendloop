@@ -80,37 +80,43 @@ export default function HomePage() {
         <Hero />
 
         {/* Action Callout */}
-        <div className="mt-6 mb-12 flex flex-wrap items-center gap-4">
-          <Unauthenticated>
-            <SignInButton mode="modal">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                className="h-12 rounded-full bg-ink px-6 text-sm font-medium text-paper shadow-xs transition hover:bg-ink/90"
+        <div className="mt-5 mb-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <div className="rounded-2xl border border-white/10 bg-card/55 p-2 backdrop-blur-md">
+            <Unauthenticated>
+              <SignInButton mode="modal">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="h-11 rounded-xl bg-primary-dark px-5 text-sm font-medium text-white shadow-[0_12px_35px_rgba(19,27,255,0.22)] transition hover:bg-primary-dark/85"
+                >
+                  Sign in to explore
+                </motion.button>
+              </SignInButton>
+            </Unauthenticated>
+
+            <Authenticated>
+              <Link
+                href="/app"
+                className="inline-flex h-11 items-center gap-2 rounded-xl bg-primary-dark px-5 text-sm font-medium text-white shadow-[0_12px_35px_rgba(19,27,255,0.22)] transition hover:bg-primary-dark/85 active:scale-95"
               >
-                Sign in to lend or borrow
-              </motion.button>
-            </SignInButton>
-          </Unauthenticated>
+                Explore tools →
+              </Link>
+            </Authenticated>
+          </div>
 
-          <Authenticated>
-            <Link
-              href="/app"
-              className="inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-sm font-medium text-paper transition hover:bg-ink/90 active:scale-95"
-            >
-              Open the board →
-            </Link>
-          </Authenticated>
-
-          <p className="text-xs text-mute sm:text-sm">
-            Free neighborhood sharing · Verified members · Zero platform fees
-          </p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-mute sm:text-sm">
+            <span>Free neighborhood sharing</span>
+            <span className="size-1 rounded-full bg-primary" />
+            <span>Verified members</span>
+            <span className="size-1 rounded-full bg-primary" />
+            <span>Zero platform fees</span>
+          </div>
         </div>
 
-        {/* Public Board Header */}
+        {/* Neighborhood Tools Header */}
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-line/60 pt-8">
           <div>
-            <h2 className="font-display text-2xl text-ink">Public catalog</h2>
+            <h2 className="font-display text-2xl text-ink">Neighborhood tools</h2>
             <p className="text-xs text-mute sm:text-sm">
               Tools currently available in your neighborhood
             </p>
@@ -146,9 +152,19 @@ export default function HomePage() {
                   <h3 className="font-medium text-ink text-lg leading-snug line-clamp-1">
                     {t.name}
                   </h3>
-                  <p className="mt-1 text-xs text-mute">
-                    Sign in to check condition & borrow
-                  </p>
+                  <Unauthenticated>
+                    <p className="mt-1 text-xs text-mute">
+                      Sign in to borrow
+                    </p>
+                  </Unauthenticated>
+                  <Authenticated>
+                    <Link
+                      href="/app"
+                      className="mt-1 inline-flex text-xs font-medium text-primary transition hover:text-primary/80"
+                    >
+                      Explore or request →
+                    </Link>
+                  </Authenticated>
                 </div>
               </div>
             )}

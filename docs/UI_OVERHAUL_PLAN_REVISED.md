@@ -441,6 +441,16 @@ clickable. Use buttons or links for actual actions.
 - Rename public catalogue copy
 - Fix signed-out and signed-in CTAs
 
+**Phase 2 implementation status: complete**
+
+- Added the lively multi-gradient editorial hero treatment with reduced-motion support.
+- Added a concentrated ambient hero backdrop and restrained word entrance motion.
+- Restyled the public header sign-in and signed-in destinations as glass pill actions.
+- Renamed the public tools section to “Neighborhood tools.”
+- Replaced the old signed-in CTA copy with “Explore tools.”
+- Separated trust signals from the primary CTA into a compact, wrapping line.
+- Replaced signed-out and signed-in card copy with state-appropriate actions.
+
 ### Phase 3 — Shared loading, cards, and states
 
 - Add the adapted loading-card implementation
@@ -491,16 +501,16 @@ clickable. Use buttons or links for actual actions.
 
 ## 12. Final Verification Checklist
 
-- [ ] Hero follows the lively Animated Kangaroo-style direction
+- [x] Hero follows the lively Animated Kangaroo-style direction
 - [x] Midnight, cyan, violet, and glass elements are cohesive
 - [x] Desktop pages are not limited to `1024px`
 - [ ] Public and app layouts work at all required viewport widths
 - [x] Footer aligns correctly on mobile and desktop
 - [ ] Header has no scrollbar or avatar overflow artifact
 - [x] Every interactive element has the correct cursor
-- [ ] Signed-out copy has no authenticated-only phrasing
-- [ ] Signed-in copy has no remaining sign-in CTA
-- [ ] "Neighborhood tools" replaces "Public catalog"
+- [x] Signed-out copy has no authenticated-only phrasing
+- [x] Signed-in copy has no remaining sign-in CTA
+- [x] "Neighborhood tools" replaces "Public catalog"
 - [ ] `Board` is replaced or clearly justified as product language
 - [ ] Request cards show pending, unavailable, owner, and loan states
 - [ ] Pending and approved date overlap rules are covered by tests
@@ -513,7 +523,7 @@ clickable. Use buttons or links for actual actions.
 
 ## 13. Revised Plan Checklist
 
-- [ ] Hero follows the lively Animated Kangaroo-style direction
+- [x] Hero follows the lively Animated Kangaroo-style direction
 - [x] Midnight, cyan, violet, and glass elements are cohesive
 - [x] Desktop pages are not limited to `1024px`
 - [ ] Public and app layouts work at all required viewport widths
