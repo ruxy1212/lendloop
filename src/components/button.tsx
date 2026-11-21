@@ -23,7 +23,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary-dark text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] hover:bg-primary hover:text-paper hover:border-primary/40",
+    "bg-primary-dark text-white shadow-[0_8px_24px_rgba(19,27,255,0.18)] hover:bg-primary hover:text-white hover:border-primary/40",
   glow:
     "border border-white/15 bg-[linear-gradient(135deg,#131bff_0%,#2f38ff_58%,#05c2ff_155%)] text-white shadow-[0_14px_45px_rgba(19,27,255,0.30),0_0_32px_rgba(5,194,255,0.12)] hover:-translate-y-0.5 hover:border-white/25 hover:shadow-[0_18px_55px_rgba(19,27,255,0.38),0_0_38px_rgba(5,194,255,0.18)]",
   ink:
