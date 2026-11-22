@@ -15,7 +15,7 @@ function safeEqual(a: string, b: string): boolean {
 }
 
 const authorized = (req: Request): boolean => {
-  const secret = process.env.AUTOMATION_API_KEY;
+  const secret = process.env.AUTOMATION_API_KEY || process.env.AUTOMATION_BEARER_TOKEN;
   if (!secret) return false;
   const authHeader = req.headers.get("authorization") ?? "";
   return safeEqual(authHeader, `Bearer ${secret}`);

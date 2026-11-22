@@ -143,8 +143,10 @@ export const dispatch = internalAction({
       return;
     }
 
-    const webhookUrl = process.env.N8N_WEBHOOK_URL;
-    const webhookSecret = process.env.N8N_WEBHOOK_SECRET;
+    const webhookUrl =
+      process.env.N8N_WEBHOOK_URL || process.env.N8N_LOAN_EVENTS_WEBHOOK_URL;
+    const webhookSecret =
+      process.env.N8N_WEBHOOK_SECRET || process.env.LENDLOOP_WEBHOOK_SECRET;
 
     if (!webhookUrl || !webhookSecret) {
       await ctx.runMutation(internal.automation.record, {

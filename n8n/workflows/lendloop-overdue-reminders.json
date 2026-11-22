@@ -6,8 +6,8 @@
         "rule": {
           "interval": [
             {
-              "field": "hours",
-              "hoursInterval": 24
+              "field": "cronExpression",
+              "expression": "0 9 * * *"
             }
           ]
         }
@@ -20,7 +20,7 @@
     },
     {
       "parameters": {
-        "url": "={{ ($vars.CONVEX_SITE_URL || '') + '/automation/overdue' }}",
+        "url": "={{ (($env && $env.CONVEX_SITE_URL) || ($vars && $vars.CONVEX_SITE_URL) || '') + '/automation/overdue' }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendQuery": true,
@@ -85,7 +85,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ ($vars.CONVEX_SITE_URL || '') + '/automation/reminder-result' }}",
+        "url": "={{ (($env && $env.CONVEX_SITE_URL) || ($vars && $vars.CONVEX_SITE_URL) || '') + '/automation/reminder-result' }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
@@ -112,7 +112,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ ($vars.CONVEX_SITE_URL || '') + '/automation/reminder-result' }}",
+        "url": "={{ (($env && $env.CONVEX_SITE_URL) || ($vars && $vars.CONVEX_SITE_URL) || '') + '/automation/reminder-result' }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
@@ -207,6 +207,7 @@
     }
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "errorWorkflow": "33333333-0000-0000-0000-000000000001"
   }
 }
