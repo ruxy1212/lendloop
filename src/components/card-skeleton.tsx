@@ -19,7 +19,7 @@ function SingleCardSkeleton({ height = 260 }: { height?: number | string }) {
 
   return (
     <div
-      className="card-skeleton-item rounded-2xl border border-white/[0.08] bg-card/60 backdrop-blur-sm"
+      className="card-skeleton-item rounded-2xl border border-white/8 bg-card/60 backdrop-blur-sm"
       style={{ height, overflow: "hidden" }}
       aria-hidden="true"
     >

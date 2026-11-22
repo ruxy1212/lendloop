@@ -20,14 +20,14 @@ export function Hero() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="relative isolate flex min-h-[100svh] flex-col justify-center py-16">
+    <section className="relative isolate overflow-x-clip flex min-h-svh flex-col justify-center py-16">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-[28%] top-[-4rem] -z-10 h-72 w-[36rem] max-w-[90vw] rounded-full bg-[radial-gradient(circle,rgba(19,27,255,0.32),rgba(99,91,255,0.12)_42%,transparent_70%)] blur-2xl"
+        className="pointer-events-none absolute left-[28%] -top-16 -z-10 h-72 w-xl max-w-[90vw] rounded-full bg-[radial-gradient(circle,rgba(19,27,255,0.32),rgba(99,91,255,0.12)_42%,transparent_70%)] blur-2xl"
       />
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-6 -z-[5] aspect-[1556/533] w-full overflow-hidden"
+        className="pointer-events-none absolute inset-x-0 bottom-6 z-[-5] aspect-1556/533 w-full overflow-hidden"
         initial={reduceMotion ? false : { opacity: 1 }}
         animate={{ opacity: reduceMotion ? 0.55 : 0.55 }}
         transition={
@@ -48,7 +48,7 @@ export function Hero() {
       </motion.div>
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-6 -z-[4] aspect-[1556/533] w-full bg-[linear-gradient(to_bottom,rgba(1,1,12,0.05),rgba(1,1,12,0.72)_65%,rgba(1,1,12,0.96))]"
+        className="pointer-events-none absolute inset-x-0 bottom-6 z-[-4] aspect-1556/533 w-full bg-[linear-gradient(to_bottom,rgba(1,1,12,0.05),rgba(1,1,12,0.72)_65%,rgba(1,1,12,0.96))]"
         initial={reduceMotion ? false : { opacity: 0.15 }}
         animate={{ opacity: reduceMotion ? 0.72 : 0.72 }}
         transition={
@@ -106,7 +106,7 @@ export function Hero() {
           >
             <motion.span
               aria-hidden="true"
-              className="absolute -inset-[50%] bg-[conic-gradient(from_0deg,transparent_0deg,transparent_210deg,#ff2a5f_245deg,#ff9f1c_270deg,#ffeb3b_295deg,#00d68f_315deg,#05c2ff_335deg,#a855f7_360deg)]"
+              className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0deg,transparent_210deg,#ff2a5f_245deg,#ff9f1c_270deg,#ffeb3b_295deg,#00d68f_315deg,#05c2ff_335deg,#a855f7_360deg)]"
               animate={reduceMotion ? undefined : { rotate: 360 }}
               transition={
                 reduceMotion

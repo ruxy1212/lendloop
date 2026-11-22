@@ -73,7 +73,7 @@ export default function AppLayout({
     <div className="min-h-screen bg-paper flex flex-col">
       <div className="mx-auto w-full max-w-7xl flex-1 px-4 sm:px-6 pb-24">
         {/* Sticky App Header */}
-        <header className="sticky top-0 z-30 -mx-4 border-b border-white/[0.08] bg-paper/75 px-4 backdrop-blur-xl sm:-mx-6 sm:px-6">
+        <header className="sticky top-0 z-30 -mx-4 border-b border-white/8 bg-paper/75 px-4 backdrop-blur-xl sm:-mx-6 sm:px-6">
           <div className="flex h-16 items-center justify-between">
             <Link
               href="/"
