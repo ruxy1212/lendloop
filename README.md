@@ -53,9 +53,15 @@ NEXT_PUBLIC_CONVEX_SITE_URL=https://<your-deployment>.convex.site
 
 Set server environment variables in your **Convex Deployment** (via Convex Dashboard &rarr; Settings &rarr; Environment Variables, or via CLI):
 ```bash
-pnpm dlx convex env set LENDLOOP_WEBHOOK_SECRET "choose-a-strong-secret-key"
-pnpm dlx convex env set AUTOMATION_BEARER_TOKEN "choose-a-strong-bearer-token"
-pnpm dlx convex env set N8N_LOAN_EVENTS_WEBHOOK_URL "https://<your-n8n-url>/webhook/lendloop-loan-events"
+# Clerk Auth issuer domain
+pnpm dlx convex env set CLERK_JWT_ISSUER_DOMAIN "https://<your-app>.clerk.accounts.dev"
+
+# Outbound HMAC Webhook signing secret & target n8n URL
+pnpm dlx convex env set N8N_WEBHOOK_URL "https://<your-n8n-url>/webhook/lendloop-loan-events"
+pnpm dlx convex env set N8N_WEBHOOK_SECRET "choose-a-strong-secret-key"
+
+# Inbound Bearer Token authenticating n8n requests into Convex HTTP actions
+pnpm dlx convex env set AUTOMATION_API_KEY "choose-a-strong-bearer-token"
 ```
 
 ---
@@ -72,18 +78,7 @@ pnpm dlx convex env set N8N_LOAN_EVENTS_WEBHOOK_URL "https://<your-n8n-url>/webh
      "email": "{{user.primary_email_address}}"
    }
    ```
-5. Copy your Clerk **Frontend API URL / Issuer** (e.g., `https://<your-app>.clerk.accounts.dev`).
-6. In `convex/auth.config.ts`, verify or update the domain:
-   ```ts
-   export default {
-     providers: [
-       {
-         domain: process.env.CLERK_JWT_ISSUER_DOMAIN || "https://<your-app>.clerk.accounts.dev",
-         applicationID: "convex",
-       },
-     ],
-   };
-   ```
+5. Copy your Clerk **Frontend API URL / Issuer** (e.g., `https://<your-app>.clerk.accounts.dev`) and ensure it matches `CLERK_JWT_ISSUER_DOMAIN` set in Step 3.
 
 ---
 
@@ -92,14 +87,22 @@ pnpm dlx convex env set N8N_LOAN_EVENTS_WEBHOOK_URL "https://<your-n8n-url>/webh
 Import the 3 JSON workflows located in [`n8n/workflows/`](./n8n/workflows/):
 
 1. **`lendloop-loan-events.json`** (Workflow A):
-   - Handles loan requested, approved, declined, returned notifications.
-   - Set `$vars.LENDLOOP_WEBHOOK_SECRET` in your n8n environment (or update node with your secret).
+   - Handles loan requested, approved, declined, and returned notifications.
+   - Verifies HMAC signatures using `LENDLOOP_WEBHOOK_SECRET` (supports self-hosted container `$env` as well as n8n Cloud `$vars`).
+   - Automatically reports failures to Workflow C (`lendloop-error-handler`).
 2. **`lendloop-overdue-reminders.json`** (Workflow B):
    - Daily cron (09:00 UTC) querying `/automation/overdue` and reporting results to `/automation/reminder-result`.
-   - Set Header Auth credential with Bearer Token = `$AUTOMATION_BEARER_TOKEN`.
-   - Set URL variable = `https://<your-deployment>.convex.site`.
+   - Set Header Auth credential with `Authorization: Bearer <AUTOMATION_API_KEY>`.
+   - Configured with `CONVEX_SITE_URL` (supports `$env` and `$vars`).
+   - Connected to Workflow C (`lendloop-error-handler`) on execution failure.
 3. **`lendloop-error-handler.json`** (Workflow C):
    - Global error trigger alerting admins on failed automation nodes.
+
+Verify that exported workflow JSON files contain zero sensitive keys:
+```bash
+grep -rniE "bearer |secret|password|api[_-]?key" n8n/workflows/
+```
+*(Should return zero embedded secrets).*
 
 Activate all three workflows.
 
@@ -128,9 +131,10 @@ Activate all three workflows.
 | `CLERK_SECRET_KEY` | `.env.local` | Clerk server-side API key | **Yes** |
 | `NEXT_PUBLIC_CONVEX_URL` | `.env.local` | Client connection URL to Convex WebSocket DB | No |
 | `NEXT_PUBLIC_CONVEX_SITE_URL` | `.env.local` | Convex HTTP Actions endpoint base URL | No |
-| `LENDLOOP_WEBHOOK_SECRET` | Convex Env | Shared secret for signing outbound HMAC webhooks | **Yes** |
-| `AUTOMATION_BEARER_TOKEN` | Convex Env | Secret bearer token authenticating inbound n8n requests | **Yes** |
-| `N8N_LOAN_EVENTS_WEBHOOK_URL` | Convex Env | URL of n8n webhook receiving loan lifecycle events | No |
+| `CLERK_JWT_ISSUER_DOMAIN` | Convex Env | Clerk domain issuer URL for verifying tokens | No |
+| `N8N_WEBHOOK_URL` | Convex Env | Target URL of n8n webhook receiving loan lifecycle events | No |
+| `N8N_WEBHOOK_SECRET` | Convex Env / n8n | Shared secret for signing & verifying outbound HMAC webhooks | **Yes** |
+| `AUTOMATION_API_KEY` | Convex Env / n8n | Secret bearer token authenticating inbound n8n requests | **Yes** |
 
 ---
 

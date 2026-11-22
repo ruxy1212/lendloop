@@ -136,7 +136,7 @@ export default function HomePage() {
                       size="lg"
                       className="h-14 min-w-52 rounded-full px-7 text-[15px]"
                     >
-                      Sign in to explore
+                      Sign in to lend or borrow
                     </Button>
                   </motion.div>
                 </SignInButton>

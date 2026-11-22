@@ -49,7 +49,7 @@ export function Header() {
           <Unauthenticated>
             <SignInButton mode="modal">
               <Button variant="ink" size="sm" className="border border-white/10">
-                Sign in
+                Sign in to lend or borrow
               </Button>
             </SignInButton>
           </Unauthenticated>
