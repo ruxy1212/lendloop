@@ -68,6 +68,10 @@ describe("LendLoop RBAC and Security Invariants", () => {
     await expect(t.query(api.loans.mine, {})).rejects.toThrowError(
       expect.objectContaining({ data: { code: "UNAUTHENTICATED" } })
     );
+
+    await expect(t.query(api.loans.incoming, {})).rejects.toThrowError(
+      expect.objectContaining({ data: { code: "UNAUTHENTICATED" } })
+    );
   });
 
   it("Test 3: User B cannot update or remove User A's tool (FORBIDDEN)", async () => {
